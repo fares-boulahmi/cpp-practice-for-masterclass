@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to C++ Number Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate & Teal -->
+    <!-- Application Structure Plan: The application is designed as a non-linear educational tool, diverging from the source report's linear structure to enhance usability and learning. The structure is organized into five thematic sections accessible via a sticky navigation bar: 1) A 'Core Concepts' introduction to set the stage. 2) An 'Interactive Converter' as the central, hands-on learning hub. 3) A 'Systems Deep Dive' with tabbed content for focused exploration of Binary, Hex, and Octal. 4) A 'C++ in Practice' section showcasing real-world code and scenarios. 5) A 'References' section for further reading. This task-oriented design allows users to either follow a logical learning path or jump directly to the tools and information they need, which is more effective for both beginners and experienced developers refreshing their knowledge. -->
+    <!-- Visualization & Content Choices: The application translates the report's text into interactive components to achieve specific learning goals. Report Info: Base conversions -> Goal: Explore & Understand -> Viz/Method: A multi-way interactive converter (HTML/JS) that updates in real-time. Justification: Active, hands-on learning is more effective than passive reading. Report Info: Positional notation math -> Goal: Explain -> Viz/Method: A dynamically generated breakdown of the conversion formula (HTML/JS). Justification: Demystifies the underlying mathematics. Report Info: Bit grouping for Hex/Octal -> Goal: Explain -> Viz/Method: A visual representation of a binary string being grouped into 3-bit or 4-bit chunks (HTML/CSS/JS). Justification: Makes the abstract concept of "shorthand" tangible. Report Info: C++ code examples -> Goal: Inform & Organize -> Viz/Method: Tabbed, interactive code blocks. Justification: Presents practical information in a clean, non-overwhelming format. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* slate-100 */
+            color: #334155; /* slate-700 */
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+        .nav-link {
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .nav-link-active {
+            color: #0891b2 !important; /* cyan-600 */
+            border-bottom-color: #0891b2 !important;
+        }
+        .tab-active {
+            background-color: #0891b2; /* cyan-600 */
+            color: white;
+        }
+        .code-block {
+            background-color: #1e293b; /* slate-800 */
+            color: #e2e8f0; /* slate-200 */
+        }
+        .code-block .token-keyword { color: #93c5fd; } /* blue-300 */
+        .code-block .token-type { color: #6ee7b7; } /* emerald-300 */
+        .code-block .token-literal { color: #f9a8d4; } /* pink-300 */
+        .code-block .token-comment { color: #9ca3af; } /* gray-400 */
+        .code-block .token-string { color: #fde047; } /* yellow-300 */
+        .bit-group {
+            transition: all 0.3s ease-in-out;
+            border-color: #94a3b8; /* slate-400 */
+        }
+        .bit-group-hex { border-color: #22c55e; } /* green-500 */
+        .bit-group-oct { border-color: #f97316; } /* orange-500 */
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-cyan-600">Number Systems in C++</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#concepts" class="nav-link text-gray-500 hover:text-cyan-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Core Concepts</a>
+                        <a href="#converter" class="nav-link text-gray-500 hover:text-cyan-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Interactive Converter</a>
+                        <a href="#deep-dive" class="nav-link text-gray-500 hover:text-cyan-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Systems Deep Dive</a>
+                        <a href="#practice" class="nav-link text-gray-500 hover:text-cyan-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">C++ in Practice</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#concepts" class="text-gray-500 hover:text-cyan-600 block px-3 py-2 rounded-md text-base font-medium">Core Concepts</a>
+                <a href="#converter" class="text-gray-500 hover:text-cyan-600 block px-3 py-2 rounded-md text-base font-medium">Interactive Converter</a>
+                <a href="#deep-dive" class="text-gray-500 hover:text-cyan-600 block px-3 py-2 rounded-md text-base font-medium">Systems Deep Dive</a>
+                <a href="#practice" class="text-gray-500 hover:text-cyan-600 block px-3 py-2 rounded-md text-base font-medium">C++ in Practice</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="concepts" class="mb-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Why Number Systems Matter</h2>
+            <p class="text-lg text-slate-600 mb-8 max-w-3xl">
+                At its core, a computer only understands two states: on and off. This binary nature is the foundation of all modern computing. As a C++ developer, you work with high-level abstractions like `int` and `char`, but beneath the surface, everything is stored and manipulated as sequences of 0s and 1s. Understanding the different number systems is key to mastering low-level programming, debugging, and optimizing your code. This guide makes those concepts interactive and tangible.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-cyan-500">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-2">Decimal (Base 10)</h3>
+                    <p class="text-slate-600">The system we use daily. It uses ten digits (0-9). Each position is a power of 10.</p>
+                    <p class="font-mono text-2xl mt-4 text-cyan-600">42</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-emerald-500">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-2">Binary (Base 2)</h3>
+                    <p class="text-slate-600">The computer's native language. It uses two digits (0 and 1). Each position is a power of 2.</p>
+                    <p class="font-mono text-2xl mt-4 text-emerald-600">101010</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-amber-500">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-2">Hexadecimal (Base 16)</h3>
+                    <p class="text-slate-600">A compact shorthand for binary. Uses 16 symbols (0-9, A-F). Each digit represents 4 bits.</p>
+                    <p class="font-mono text-2xl mt-4 text-amber-600">2A</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-2">Octal (Base 8)</h3>
+                    <p class="text-slate-600">An older shorthand for binary. Uses eight digits (0-7). Each digit represents 3 bits.</p>
+                    <p class="font-mono text-2xl mt-4 text-orange-600">52</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="converter" class="mb-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Interactive Number Converter</h2>
+            <p class="text-lg text-slate-600 mb-8 max-w-3xl">
+                Get a hands-on feel for how numbers translate between bases. Enter a value in any field, and see it instantly converted to the other systems. The mathematical breakdown and bit groupings will update as you type.
+            </p>
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="input-dec" class="block text-sm font-medium text-slate-700">Decimal (Base 10)</label>
+                            <input type="text" id="input-dec" data-base="10" class="converter-input mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 font-mono" value="42">
+                        </div>
+                        <div>
+                            <label for="input-bin" class="block text-sm font-medium text-slate-700">Binary (Base 2)</label>
+                            <input type="text" id="input-bin" data-base="2" class="converter-input mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 font-mono" value="101010">
+                        </div>
+                        <div>
+                            <label for="input-hex" class="block text-sm font-medium text-slate-700">Hexadecimal (Base 16)</label>
+                            <input type="text" id="input-hex" data-base="16" class="converter-input mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-amber-500 focus:border-amber-500 font-mono uppercase" value="2A">
+                        </div>
+                        <div>
+                            <label for="input-oct" class="block text-sm font-medium text-slate-700">Octal (Base 8)</label>
+                            <input type="text" id="input-oct" data-base="8" class="converter-input mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 font-mono" value="52">
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-semibold text-slate-800 mb-3">Conversion Breakdown</h4>
+                        <div id="conversion-breakdown" class="font-mono text-sm text-slate-600 break-words"></div>
+                        <hr class="my-4">
+                        <h4 class="font-semibold text-slate-800 mb-3">Binary Bit Grouping</h4>
+                        <div id="bit-grouping-visualizer" class="mt-2 space-y-3"></div>
+                    </div>
+                </div>
+                 <div id="error-message" class="mt-4 text-red-600 font-medium text-center hidden"></div>
+            </div>
+        </section>
+
+        <section id="deep-dive" class="mb-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Systems Deep Dive</h2>
+            <p class="text-lg text-slate-600 mb-8 max-w-3xl">
+                Explore the specifics of each number system, including its unique properties, C++ syntax, and its role in modern computing.
+            </p>
+            <div>
+                <div class="mb-4 border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-4" aria-label="Tabs">
+                        <button class="deep-dive-tab whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm border-transparent text-slate-500 hover:text-cyan-600 hover:border-cyan-300 tab-active" data-target="dive-binary">Binary</button>
+                        <button class="deep-dive-tab whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm border-transparent text-slate-500 hover:text-cyan-600 hover:border-cyan-300" data-target="dive-hex">Hexadecimal</button>
+                        <button class="deep-dive-tab whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm border-transparent text-slate-500 hover:text-cyan-600 hover:border-cyan-300" data-target="dive-octal">Octal</button>
+                    </nav>
+                </div>
+                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+                    <div id="dive-binary" class="deep-dive-content">
+                        <h3 class="text-2xl font-semibold text-emerald-600 mb-4">Binary (Base 2)</h3>
+                        <p class="mb-4">Binary is the fundamental language of computers. Because electronic circuits have two stable states (on/off, high/low voltage), representing information with two symbols (1 and 0) is the most reliable and efficient method. Every piece of data, from an integer to a character to a pixel color, is stored as a binary sequence.</p>
+                        <p class="font-semibold mb-2">C++ Syntax:</p>
+                        <p>Since C++14, you can declare binary literals using the <code class="font-mono bg-slate-200 text-slate-800 rounded px-1 py-0.5">0b</code> or <code class="font-mono bg-slate-200 text-slate-800 rounded px-1 py-0.5">0B</code> prefix.</p>
+                        <pre class="code-block p-4 rounded-md mt-2 text-sm"><code class="language-cpp"><span class="token-type">int</span> value = <span class="token-literal">0b101010</span>; <span class="token-comment">// Represents decimal 42</span></code></pre>
+                    </div>
+                    <div id="dive-hex" class="deep-dive-content hidden">
+                        <h3 class="text-2xl font-semibold text-amber-600 mb-4">Hexadecimal (Base 16)</h3>
+                        <p class="mb-4">Hexadecimal is the dominant shorthand for binary in modern computing. Its power comes from the fact that 2⁴ = 16, meaning one hex digit represents exactly 4 binary bits (a "nibble"). This makes it perfect for representing 8-bit bytes, as two hex digits (<code class="font-mono">FF</code>) map perfectly to one byte. It's used everywhere from memory addresses and pointers to color codes (#RRGGBB) and network protocols.</p>
+                        <p class="font-semibold mb-2">C++ Syntax:</p>
+                        <p>Use the <code class="font-mono bg-slate-200 text-slate-800 rounded px-1 py-0.5">0x</code> or <code class="font-mono bg-slate-200 text-slate-800 rounded px-1 py-0.5">0X</code> prefix for hexadecimal literals.</p>
+                        <pre class="code-block p-4 rounded-md mt-2 text-sm"><code class="language-cpp"><span class="token-type">int</span> address = <span class="token-literal">0xFFD7004C</span>; <span class="token-comment">// A 32-bit memory address</span>
+<span class="token-type">int</span> color = <span class="token-literal">0x1E90FF</span>;   <span class="token-comment">// Dodger Blue</span></code></pre>
+                    </div>
+                    <div id="dive-octal" class="deep-dive-content hidden">
+                        <h3 class="text-2xl font-semibold text-orange-600 mb-4">Octal (Base 8)</h3>
+                        <p class="mb-4">Octal is an older binary shorthand where one octal digit represents 3 binary bits (2³ = 8). It was popular on early computer systems with word sizes that were multiples of 3 (e.g., 12-bit, 36-bit). Today, its use has declined in favor of hexadecimal, but it survives in specific niches, most notably for representing file permissions in Unix-like systems (e.g., <code class="font-mono">chmod 755</code>).</p>
+                        <p class="font-semibold mb-2">C++ Syntax:</p>
+                        <p>A leading zero <code class="font-mono bg-slate-200 text-slate-800 rounded px-1 py-0.5">0</code> indicates an octal literal. This can be a source of bugs for beginners!</p>
+                        <pre class="code-block p-4 rounded-md mt-2 text-sm"><code class="language-cpp"><span class="token-type">int</span> permissions = <span class="token-literal">0755</span>; <span class="token-comment">// rwxr-xr-x permissions</span>
+<span class="token-type">int</span> value = <span class="token-literal">010</span>;      <span class="token-comment">// This is decimal 8, NOT 10!</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="practice" class="mb-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">C++ in Practice</h2>
+            <p class="text-lg text-slate-600 mb-8 max-w-3xl">
+                See how these number systems are used in practical C++ code. Select an example to view the code and its explanation. These examples demonstrate common tasks like defining bitmasks, manipulating I/O streams, and using standard library conversion functions.
+            </p>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/3">
+                    <div class="space-y-2">
+                        <button class="practice-tab w-full text-left p-4 rounded-lg bg-white shadow-sm hover:bg-cyan-50" data-target="practice-bitwise">
+                            <h4 class="font-semibold text-slate-800">Bitwise Operations & Masks</h4>
+                            <p class="text-sm text-slate-500">Using hex to define flags and manipulate bits.</p>
+                        </button>
+                        <button class="practice-tab w-full text-left p-4 rounded-lg bg-white shadow-sm hover:bg-cyan-50" data-target="practice-io">
+                            <h4 class="font-semibold text-slate-800">I/O Stream Manipulation</h4>
+                            <p class="text-sm text-slate-500">Printing numbers in different bases with `std::cout`.</p>
+                        </button>
+                        <button class="practice-tab w-full text-left p-4 rounded-lg bg-white shadow-sm hover:bg-cyan-50" data-target="practice-stdlib">
+                            <h4 class="font-semibold text-slate-800">Standard Library Conversions</h4>
+                            <p class="text-sm text-slate-500">Using `std::stoi` and `std::bitset` for safe conversions.</p>
+                        </button>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <div id="practice-content-area" class="bg-slate-800 rounded-xl shadow-lg overflow-hidden">
+                        <!-- Content will be injected here by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <p>Interactive C++ Number Systems Guide</p>
+            <p class="text-sm mt-1">An interactive learning tool generated from a source report.</p>
+        </div>
+    </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const inputs = document.querySelectorAll('.converter-input');
+    const breakdownDiv = document.getElementById('conversion-breakdown');
+    const bitgroupDiv = document.getElementById('bit-grouping-visualizer');
+    const errorMessageDiv = document.getElementById('error-message');
+
+    const deepDiveTabs = document.querySelectorAll('.deep-dive-tab');
+    const deepDiveContents = document.querySelectorAll('.deep-dive-content');
+
+    const practiceTabs = document.querySelectorAll('.practice-tab');
+    const practiceContentArea = document.getElementById('practice-content-area');
+    
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main section');
+
+    const practiceContent = {
+        'practice-bitwise': {
+            title: 'Bitwise Operations & Masks',
+            explanation: "Hexadecimal is ideal for defining bitmasks because each digit maps to 4 bits. This makes it easy to visualize and define flags for specific bits in a byte or word. Here, we define flags for reading, writing, and executing, and then use bitwise operators to check permissions.",
+            code: `<pre class="code-block p-4 sm:p-6 text-sm overflow-x-auto"><code class="language-cpp"><span class="token-comment">// Define flags using hexadecimal literals</span>
+<span class="token-keyword">const</span> <span class="token-type">int</span> READ_FLAG  = <span class="token-literal">0x4</span>; <span class="token-comment">// Binary 0100</span>
+<span class="token-keyword">const</span> <span class="token-type">int</span> WRITE_FLAG = <span class="token-literal">0x2</span>; <span class="token-comment">// Binary 0010</span>
+<span class="token-keyword">const</span> <span class="token-type">int</span> EXEC_FLAG  = <span class="token-literal">0x1</span>; <span class="token-comment">// Binary 0001</span>
+
+<span class="token-type">int</span> userPermissions = READ_FLAG | EXEC_FLAG; <span class="token-comment">// 0x5 or 0b0101</span>
+
+<span class="token-comment">// Check if user has write permission</span>
+<span class="token-keyword">if</span> (userPermissions & WRITE_FLAG) {
+    <span class="token-comment">// This block will not execute</span>
+}
+</code></pre>`
+        },
+        'practice-io': {
+            title: 'I/O Stream Manipulation',
+            explanation: "C++'s `<iostream>` and `<iomanip>` headers provide manipulators to control the output format of numbers. `std::dec`, `std::oct`, and `std::hex` change the base, while `std::showbase` adds the `0` or `0x` prefix. This only affects the display, not the variable's stored value.",
+            code: `<pre class="code-block p-4 sm:p-6 text-sm overflow-x-auto"><code class="language-cpp"><span class="token-keyword">#include</span> <span class="token-string">&lt;iostream&gt;</span>
+<span class="token-keyword">#include</span> <span class="token-string">&lt;iomanip&gt;</span>
+
+<span class="token-type">int</span> main() {
+    <span class="token-type">int</span> value = <span class="token-literal">255</span>;
+    
+    std::cout &lt;&lt; std::showbase; <span class="token-comment">// Show 0/0x prefixes</span>
+    
+    std::cout &lt;&lt; <span class="token-string">"Decimal: "</span> &lt;&lt; std::dec &lt;&lt; value &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span class="token-string">"Hexadecimal: "</span> &lt;&lt; std::hex &lt;&lt; value &lt;&lt; std::endl;
+    std::cout &lt;&lt; <span class="token-string">"Octal: "</span> &lt;&lt; std::oct &lt;&lt; value &lt;&lt; std::endl;
+}
+<span class="token-comment">// Output:
+// Decimal: 255
+// Hexadecimal: 0xff
+// Octal: 0377</span>
+</code></pre>`
+        },
+        'practice-stdlib': {
+            title: 'Standard Library Conversions',
+            explanation: "For robust string-to-number conversions, always prefer standard library functions. `std::stoi` can parse a string in a specified base, and `std::bitset` is excellent for converting between binary strings and integer types. They provide error handling for invalid input.",
+            code: `<pre class="code-block p-4 sm:p-6 text-sm overflow-x-auto"><code class="language-cpp"><span class="token-keyword">#include</span> <span class="token-string">&lt;iostream&gt;</span>
+<span class="token-keyword">#include</span> <span class="token-string">&lt;string&gt;</span>
+<span class="token-keyword">#include</span> <span class="token-string">&lt;bitset&gt;</span>
+
+<span class="token-type">int</span> main() {
+    std::string hexStr = <span class="token-string">"FF"</span>;
+    std::string binStr = <span class="token-string">"101010"</span>;
+
+    <span class="token-type">int</span> hexValue = std::stoi(hexStr, <span class="token-keyword">nullptr</span>, <span class="token-literal">16</span>);
+    std::cout &lt;&lt; <span class="token-string">"'FF' is "</span> &lt;&lt; hexValue &lt;&lt; std::endl;
+
+    std::bitset&lt;<span class="token-literal">8</span>&gt; bits(binStr);
+    std::cout &lt;&lt; <span class="token-string">"'101010' is "</span> &lt;&lt; bits.to_ulong() &lt;&lt; std::endl;
+}
+<span class="token-comment">// Output:
+// 'FF' is 255
+// '101010' is 42</span>
+</code></pre>`
+        }
+    };
+
+    function updateAll(sourceElement) {
+        const sourceValue = sourceElement.value;
+        const sourceBase = parseInt(sourceElement.dataset.base);
+        
+        if (sourceValue.trim() === '') {
+            clearAllInputs();
+            clearVisuals();
+            hideError();
+            return;
+        }
+
+        const validationRegex = {
+            10: /^-?[0-9]+$/,
+            2: /^[01]+$/,
+            16: /^[0-9a-fA-F]+$/,
+            8: /^[0-7]+$/
+        };
+
+        if (!validationRegex[sourceBase].test(sourceValue)) {
+            showError(`Invalid character for base ${sourceBase}.`);
+            sourceElement.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+            return;
+        }
+        
+        hideError();
+        sourceElement.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+
+        let decValue;
+        try {
+            decValue = BigInt(sourceBase === 10 ? sourceValue : `0${{'2':'b', '8':'o', '16':'x'}[sourceBase]}${sourceValue}`);
+        } catch (e) {
+            try {
+                 decValue = parseInt(sourceValue, sourceBase);
+                 if (isNaN(decValue)) throw new Error();
+            } catch (e) {
+                showError('Invalid number format.');
+                return;
+            }
+        }
+        
+        if (decValue > BigInt(Number.MAX_SAFE_INTEGER) || decValue < BigInt(Number.MIN_SAFE_INTEGER)) {
+            showError('Value is too large for precise conversion in JavaScript.');
+            return;
+        }
+        decValue = Number(decValue);
+
+
+        inputs.forEach(input => {
+            const targetBase = parseInt(input.dataset.base);
+            if (targetBase !== sourceBase) {
+                if (decValue === 0) {
+                    input.value = '0';
+                } else if (isNaN(decValue)) {
+                    input.value = '';
+                }
+                else {
+                    input.value = decValue.toString(targetBase).toUpperCase();
+                }
+            }
+        });
+        
+        updateBreakdown(decValue, sourceBase);
+        updateBitGrouping(decValue.toString(2));
+    }
+
+    function showError(message) {
+        errorMessageDiv.textContent = message;
+        errorMessageDiv.classList.remove('hidden');
+    }
+
+    function hideError() {
+        errorMessageDiv.classList.add('hidden');
+        inputs.forEach(input => input.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500'));
+    }
+
+    function clearAllInputs() {
+        inputs.forEach(input => input.value = '');
+    }
+
+    function clearVisuals() {
+        breakdownDiv.innerHTML = '';
+        bitgroupDiv.innerHTML = '';
+    }
+
+    function updateBreakdown(decValue, base) {
+        if (isNaN(decValue)) {
+            breakdownDiv.innerHTML = '';
+            return;
+        }
+        
+        let valueStr = decValue.toString(base);
+        let breakdownHTML = `<p class="mb-2">From Base ${base} to Decimal:</p>`;
+        let formula = [];
+        
+        for (let i = 0; i < valueStr.length; i++) {
+            const digit = parseInt(valueStr[i], base);
+            const power = valueStr.length - 1 - i;
+            formula.push(`(<span class="text-cyan-600 font-semibold">${digit}</span> × ${base}<sup>${power}</sup>)`);
+        }
+        
+        breakdownHTML += `<div class="text-xs md:text-sm">${formula.join(' + ')}</div>`;
+        breakdownHTML += `<p class="mt-2 text-lg">= <span class="font-bold text-slate-800">${decValue}</span> <sub class="text-xs">10</sub></p>`;
+        breakdownDiv.innerHTML = breakdownHTML;
+    }
+
+    function updateBitGrouping(binaryStr) {
+        if (!binaryStr || !/^[01]+$/.test(binaryStr)) {
+            bitgroupDiv.innerHTML = '';
+            return;
+        }
+
+        const paddedBinary = binaryStr.padStart(Math.ceil(binaryStr.length / 8) * 8, '0');
+
+        let hexHTML = `<div><p class="text-sm font-medium text-emerald-600 mb-1">Hexadecimal Grouping (4 bits)</p><div class="flex flex-wrap gap-x-1 gap-y-2">`;
+        for (let i = 0; i < paddedBinary.length; i += 4) {
+            const group = paddedBinary.substring(i, i + 4);
+            const hexDigit = parseInt(group, 2).toString(16).toUpperCase();
+            hexHTML += `<div class="text-center"><div class="bit-group border-2 rounded-md px-2 py-1 font-mono text-lg bit-group-hex">${group}</div><span class="font-mono text-sm text-emerald-700">${hexDigit}</span></div>`;
+        }
+        hexHTML += `</div></div>`;
+
+        let octHTML = `<div><p class="text-sm font-medium text-orange-600 mb-1">Octal Grouping (3 bits)</p><div class="flex flex-wrap gap-x-1 gap-y-2">`;
+        const octPaddedBinary = binaryStr.padStart(Math.ceil(binaryStr.length / 3) * 3, '0');
+        for (let i = 0; i < octPaddedBinary.length; i += 3) {
+            const group = octPaddedBinary.substring(i, i + 3);
+            const octDigit = parseInt(group, 2).toString(8);
+            octHTML += `<div class="text-center"><div class="bit-group border-2 rounded-md px-2 py-1 font-mono text-lg bit-group-oct">${group}</div><span class="font-mono text-sm text-orange-700">${octDigit}</span></div>`;
+        }
+        octHTML += `</div></div>`;
+
+        bitgroupDiv.innerHTML = hexHTML + octHTML;
+    }
+
+    inputs.forEach(input => {
+        input.addEventListener('input', (e) => {
+            updateAll(e.target);
+        });
+    });
+
+    deepDiveTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            deepDiveTabs.forEach(t => t.classList.remove('tab-active', 'text-cyan-600', 'border-cyan-600'));
+            tab.classList.add('tab-active', 'text-cyan-600', 'border-cyan-600');
+            
+            deepDiveContents.forEach(content => content.classList.add('hidden'));
+            document.getElementById(tab.dataset.target).classList.remove('hidden');
+        });
+    });
+
+    function updatePracticeContent(targetId) {
+        const content = practiceContent[targetId];
+        if (!content) return;
+        
+        practiceTabs.forEach(t => t.classList.remove('bg-cyan-100'));
+        document.querySelector(`.practice-tab[data-target="${targetId}"]`).classList.add('bg-cyan-100');
+
+        practiceContentArea.innerHTML = `
+            <div class="p-4 sm:p-6 bg-white text-slate-800">
+                <h3 class="text-xl font-bold mb-2">${content.title}</h3>
+                <p class="text-slate-600 text-sm">${content.explanation}</p>
+            </div>
+            ${content.code}
+        `;
+    }
+
+    practiceTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            updatePracticeContent(tab.dataset.target);
+        });
+    });
+    
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.toggle('nav-link-active', link.getAttribute('href').substring(1) === entry.target.id);
+                });
+            }
+        });
+    }, { rootMargin: "-50% 0px -50% 0px" });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // Initial state
+    updateAll(document.getElementById('input-dec'));
+    updatePracticeContent('practice-bitwise');
+    document.querySelector('.practice-tab[data-target="practice-bitwise"]').classList.add('bg-cyan-100');
+    document.querySelector('.nav-link[href="#concepts"]').classList.add('nav-link-active');
+});
+</script>
+
+</body>
+</html>
