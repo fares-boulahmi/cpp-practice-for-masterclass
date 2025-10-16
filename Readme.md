@@ -332,6 +332,10 @@ This is a personal learning repository, but feedback is welcome!
 4. **At chapter end:** Attempt the chapter challenge (aim for at least 3/6 problems)
 5. **Don't skip challenges** - they're where real understanding develops
 
+## 🔗 Companion Repository
+
+**[DSA Deep Dive Practice](https://github.com/fares-boulahmi/dsa-deep-dive-practice.git)** - Advanced data structures and algorithms practice focused on concepts from MIT courses (linked lists, trees, graphs, sets, etc.) with progressive problem-solving challenges.
+
 ---
 
 **Learning Philosophy:** The goal isn't perfect code on the first try - it's understanding. Every bug fixed, every concept grasped, every test case passed represents real progress. The struggle with Medium/Hard problems is where the deepest learning happens. Keep building, keep learning! 💪
