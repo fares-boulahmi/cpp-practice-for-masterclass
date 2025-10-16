@@ -290,6 +290,26 @@ This is a personal learning repository, but feedback is welcome!
 
 **Remember:** These are learning exercises, not production code examples.
 
+## 📌 Important Note on Challenge Structure
+
+**Challenge availability varies by chapter based on content complexity:**
+
+- **Chapters 1-3** (First Step, Variables, Operations): No challenges included
+  - These cover fundamental syntax and basic operations
+  - Concepts are straightforward and don't require integration exercises
+  
+- **Chapters 4+** (Flow Control onwards): Chapter challenges included
+  - Each chapter ends with a `Chapterchallange/` folder
+  - Contains 6 integration problems + 15-question quiz
+  - Concepts are complex enough to warrant comprehensive practice
+
+- **Chapter 7** (Pointers): First chapter with **lesson-level challenges**
+  - Individual lesson folders may include mini-challenges
+  - Pointers introduce memory management complexity requiring extra practice
+  - This pattern continues for advanced topics in later chapters
+
+**Rationale:** As someone with real-world development experience and a software engineering background, I've structured challenges where they provide genuine learning value. Basic syntax and simple operations don't need elaborate integration problems—advanced topics like pointers, references, and OOP concepts do.
+
 ## 📝 Notes
 
 - Each problem builds on previous concepts progressively
