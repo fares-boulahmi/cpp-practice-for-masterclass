@@ -4,12 +4,12 @@ using namespace std;
 int main(){ 
 
     //Check if character is alphanumeric
-    /*
+    
     cout << endl;
     cout << "isalnum : "<<endl;
 	
     cout << "C is alphanumeric : " << isalnum('C') << endl;
-    cout << "^ is alphanumeric : " << isalnum('^') << endl;
+    cout << "^ is alphanumeric : " << !isalnum('m') << endl;
 	
 	//Can use this as a test condition
 	char input_char {'*'};
@@ -18,7 +18,7 @@ int main(){
 	}else{
 		cout << input_char <<  " is not alphanumeric." << endl;
 	}
-    */
+   
 
     //Check if character is alphabetic
     /*
