@@ -128,7 +128,23 @@ string problemA2Solution(string text, int shift) {
 bool problemA3Solution(const string& s) {
     // TODO: Check palindrome by filtering and comparing characters
     // Hint: Extract only alphanumeric chars, convert to lowercase, compare forward/backward
-    return false ;
+    string compare {};
+    for (int i = 0; i < s.size(); i++)
+    {
+        if (isalpha(s[i]))
+        {
+            compare.push_back(tolower(s[i]));
+        }
+    }
+    for (int i = 0; i < compare.size() / 2; i++)
+    {
+        if (compare[i] != compare[compare.size() - i - 1]) {
+            return false ;
+        }
+    }
+    
+    
+    return true ;
 }
 
 // Problem A4: Complex Synthesis - Text Word Counter and Analyzer
@@ -146,6 +162,23 @@ vector<pair<string, int>> problemA4Solution(const char* text) {
     // Convert each word to lowercase for comparison
     // Sort by frequency using custom comparator
     vector <pair<string , int>> result ;
+    vector <string> words ;
+    int start = 0;
+    for (int i = 0; i < strlen(text); i++)
+    {
+        if(!isalpha(text[i]) ) {
+            cout << "the char is " << text[i] << endl;
+            string word(text + start , i);
+            words.push_back(word);
+            start = i + 1;
+        }
+    }
+    for (int i = 0; i < words.size(); i++)
+    {
+        cout <<"the word is " << words[i] << endl;
+    }
+    
+    
     return result ;
 }
 

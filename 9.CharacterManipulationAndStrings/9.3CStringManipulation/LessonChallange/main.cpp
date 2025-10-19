@@ -126,35 +126,27 @@ void removeDuplicates(char* str) {
     // Hint: For each character, check if it appeared earlier in the string
     // If it's the first occurrence, keep it; otherwise, shift remaining characters left
     // Use nested loops or track seen characters
-    /* int total = strlen(str);
-    char resutl [1000]{};
-    for (int i = 0; i < total; i++)
-    {
-     if (strchr(resutl , str[i]) == nullptr)
-     {
-          strcat(resutl , str[i]);
-     }
-     
-    }
-    for (int i = 0; i < total; i++)
-    {
-          str[i] = resutl[i];
-    } */
-   cout << "the str in first appear " << str << endl;
    for (int  i = 0; i < strlen(str); i++)
    {
      for (int j = i + 1; j < strlen(str); j++)
      {
           if (str[i] == str[j])
           {
-               cout << "get duplicated of " << str[i] << i << "in :" << str[j] << j  << endl;
-               str[j] = str[j + 1] ;
-               cout << "the j line after transfer is " << str[j] << endl;
+               for (int k = j; k < strlen(str); k++)
+               {
+                    str[k] = str[k + 1];
+               }
+               
           }
      }
-     
+     if (str[i] == str[i + 1]) {
+          for (int j = i + 1; j < strlen(str); j++)
+          {
+               str[j] = str[j + 1]; 
+          }   
+     }
+     // i know the solution is weird but dealing with char when you know string the worst thing ever 
    }
-   cout << "the str is :" << str << endl;
    
     
 }
@@ -197,6 +189,7 @@ bool compressString(const char* original, char* compressed) {
     // Compare lengths: if compressed >= original, copy original to compressed and return false
     // Use a write pointer to build the compressed string character by character
     // For counts > 9, you'll need to handle multi-digit numbers (convert int to string)
+    
     return false;
 }
 
