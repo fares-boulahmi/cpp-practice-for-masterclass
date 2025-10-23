@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include "StringUtils.h"
+#include "ArrayStats.h"
 
 using namespace std;
 
@@ -46,6 +48,21 @@ double calculate(double a, double b, char op) {
     // TODO: Implement your solution here
     // Hint: Use switch statement to handle different operations
     // Remember to check for division by zero
+    if (op == '*')
+    {
+        return a * b;
+    } else if (op == '-')
+    {
+        return a - b;
+    } else if (op == '+')
+    {
+        return a + b;
+    } else 
+    {
+        if (b == 0.0) return -999999.0;
+        return a / b;
+    } 
+    
 }
 
 // ============================================================================
@@ -86,29 +103,19 @@ double calculate(double a, double b, char op) {
 // - 0 <= string length <= 1000
 // - String may contain any printable ASCII characters
 
+/********************************************************** */
+/********************************************************** */
+
+
 // Function Declarations (would be in StringUtils.h)
-int countVowels(const string& str);
-string reverseString(const string& str);
-bool isPalindrome(const string& str);
 
 // Function Implementations (would be in StringUtils.cpp)
-int countVowels(const string& str) {
-    // TODO: Implement your solution here
-    // Hint: Loop through string and check each character
-    // Convert to lowercase for case-insensitive comparison
-}
 
-string reverseString(const string& str) {
-    // TODO: Implement your solution here
-    // Hint: Create new string and build it backwards
-    // Or use two-pointer approach
-}
 
-bool isPalindrome(const string& str) {
-    // TODO: Implement your solution here
-    // Hint: Compare characters from both ends moving inward
-    // Convert to lowercase for case-insensitive comparison
-}
+/********************************************************** */
+/********************************************************** */
+/********************************************************** */
+
 
 // ============================================================================
 // Problem 3: Medium - Array Operations Module with Multiple Dependencies
@@ -149,35 +156,20 @@ bool isPalindrome(const string& str) {
 // Constraints:
 // - 1 <= array size <= 1000
 // - -10000 <= elements <= 10000
+/********************************************************** */
+/********************************************************** */
+/********************************************************** */
+
 
 // Function Declarations (would be in ArrayStats.h)
-int calculateSum(const vector<int>& arr);
-double calculateAverage(const vector<int>& arr);
-int findRange(const vector<int>& arr);
-int countAboveAverage(const vector<int>& arr);
+
 
 // Function Implementations (would be in ArrayStats.cpp)
-int calculateSum(const vector<int>& arr) {
-    // TODO: Implement your solution here
-    // Hint: Loop through array and accumulate sum
-}
 
-double calculateAverage(const vector<int>& arr) {
-    // TODO: Implement your solution here
-    // Hint: Use calculateSum and divide by size
-    // Remember to cast to double for proper division
-}
 
-int findRange(const vector<int>& arr) {
-    // TODO: Implement your solution here
-    // Hint: Find max and min elements, then subtract
-}
-
-int countAboveAverage(const vector<int>& arr) {
-    // TODO: Implement your solution here
-    // Hint: First calculate average using calculateAverage
-    // Then count elements greater than average
-}
+/********************************************************** */
+/********************************************************** */
+/********************************************************** */
 
 // ============================================================================
 // Problem 4: Hard - Multi-Module Geometry System
@@ -243,12 +235,14 @@ double calculateDistance(double x1, double y1, double x2, double y2) {
     // TODO: Implement your solution here
     // Hint: Use the distance formula with sqrt and pow
     // Remember to include <cmath> for sqrt and pow functions
+    return 0;
 }
 
 double calculateTrianglePerimeter(double x1, double y1, double x2, double y2, double x3, double y3) {
     // TODO: Implement your solution here
     // Hint: Calculate three distances using calculateDistance
     // Side 1: point1 to point2, Side 2: point2 to point3, Side 3: point3 to point1
+    return 0;
 }
 
 double calculateTriangleArea(double x1, double y1, double x2, double y2, double x3, double y3) {
@@ -259,6 +253,7 @@ double calculateTriangleArea(double x1, double y1, double x2, double y2, double 
     // Step 3: Calculate three sides using calculateDistance
     // Step 4: Area = sqrt(s * (s-a) * (s-b) * (s-c))
     // Return 0.0 if triangle is invalid
+    return 0;
 }
 
 bool isValidTriangle(double x1, double y1, double x2, double y2, double x3, double y3) {
@@ -266,6 +261,7 @@ bool isValidTriangle(double x1, double y1, double x2, double y2, double x3, doub
     // Hint: Calculate three sides using calculateDistance
     // Check triangle inequality: a+b>c, b+c>a, c+a>b
     // Use small epsilon (0.0001) for floating point comparison
+    return 0;
 }
 
 // ============================================================================

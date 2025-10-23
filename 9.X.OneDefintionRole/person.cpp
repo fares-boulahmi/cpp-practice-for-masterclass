@@ -1,8 +1,8 @@
-// #include "person.h"
-// int Person::person_count = 8;
+#include "person.h"
+int Person::person_count = 8;
 
-// Person::Person(const string &names_param, int age_param)
-//     : full_name{names_param}, age{age_param}
-// {
-//     ++person_count;
-// }
+Person::Person(const string &names_param, int age_param)
+    : full_name{names_param}, age{age_param}
+{
+    ++person_count;
+}
