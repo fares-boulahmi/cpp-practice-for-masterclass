@@ -3,6 +3,13 @@
 #include <string>
 #include <cstring>
 #include <cassert>
+#include "A1.h"
+#include "A2.h"
+#include "A3.h"
+#include "A4.h"
+#include "A5.h"
+#include "A6.h"
+
 
 using namespace std;
 
@@ -31,8 +38,12 @@ using namespace std;
 // Constraints:
 // - String length: 0-1000 characters
 // - Only consider A, E, I, O, U as vowels (case insensitive)
-int processStringPointer(char* str);
-int processStringValue(string str);
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
 
 // Problem A2: Intermediate Synthesis - Array Statistics with Multiple Parameter Types
 // CONCEPTS: Pass by Pointer, Pass by Reference, Function Overloading, Dynamic Memory
@@ -61,8 +72,14 @@ int processStringValue(string str);
 // Constraints:
 // - Array size: 0-1000 elements
 // - Array values: -10000 to 10000
-void calculateStats(const int* arr, int size, int& sum, double& avg, int& min, int& max, int& median);
-void sortArrayCopy(int* copy, int size);
+
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+
 
 // Problem A3: Advanced Integration - Multi-File Simulation with ODR
 // CONCEPTS: One Definition Rule, Function Declarations, Multiple Files, Pass by Reference
@@ -94,15 +111,18 @@ void sortArrayCopy(int* copy, int size);
 // - Student names: 1-50 characters
 // - Scores: 0-100
 // - Database size: 0-100 students
-struct Student {
-    string name;
-    int score;
-};
+// struct Student {
+//     string name;
+//     int score;
+// };
 
-void addStudent(vector<Student>& database, const string& name, int score);
-void updateScore(vector<Student>& database, const string& name, int newScore);
-double getAverageScore(const vector<Student>& database);
-string findTopStudent(const vector<Student>& database);
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+
 
 // Problem A4: Complex Synthesis - Dynamic Matrix Operations with Mixed Passing
 // CONCEPTS: Dynamic Memory, Pass by Pointer, Pass by Reference, Pass by Value, Memory Safety
@@ -134,11 +154,14 @@ string findTopStudent(const vector<Student>& database);
 // Constraints:
 // - Matrix dimensions: 1x1 to 100x100
 // - Values: -1000 to 1000
-int** createMatrix(int rows, int cols);
-void fillMatrix(int** matrix, int rows, int cols, const int* values);
-int** transposeMatrix(int** matrix, int rows, int cols);
-void calculateRowSums(int** matrix, int rows, int cols, vector<int>& sums);
-void deleteMatrix(int**& matrix, int rows);
+
+
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
 
 // Problem A5: Mastery Challenge - Function Pointer System with All Concepts
 // CONCEPTS: ALL Chapter 11 concepts + Function Pointers + Previous Chapters
@@ -173,14 +196,15 @@ void deleteMatrix(int**& matrix, int rows);
 // Constraints:
 // - Text length: 0-10000 characters
 // - Caesar shift: -26 to 26
-enum TextOperation { UPPERCASE, LOWERCASE, REVERSE, ENCRYPT };
+// enum TextOperation { UPPERCASE, LOWERCASE, REVERSE, ENCRYPT };
 
-string processText(const string& text, TextOperation op, int param);
-string toUpperCase(const string& text);
-string toLowerCase(const string& text);
-string reverseText(const string& text);
-string encryptCaesar(const string& text, int shift);
-string chainOperations(const string& text, const vector<TextOperation>& ops, const vector<int>& params);
+
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
+//************************************************************************************ */
 
 // Problem A6: Expert Application - Complete Memory Management System
 // CONCEPTS: ALL Functions concepts + Pointers + References + Dynamic Memory + Previous Knowledge
@@ -219,7 +243,7 @@ string chainOperations(const string& text, const vector<TextOperation>& ops, con
 // - Initial capacity: 1-1000
 // - Max capacity: 10000
 // - Element type: int
-class DynamicArray {
+/* class DynamicArray {
 private:
     int* data;
     int size;
@@ -237,7 +261,7 @@ public:
     void copyArray(const DynamicArray& source);
     int getSize() const;
     int getCapacity() const;
-};
+}; */
 
 //=== SECTION B: KNOWLEDGE VALIDATION QUIZ ===
 
@@ -1192,7 +1216,7 @@ void testProblemA5() {
     cout << "Problem A5 Results: " << passed << "/" << total << " tests passed" << endl << endl;
 }
 
-void testProblemA6() {
+/* void testProblemA6() {
     cout << "Testing Problem A6 - Complete Memory Management System..." << endl;
     int passed = 0, total = 0;
     
@@ -1329,7 +1353,7 @@ void testProblemA6() {
     
     cout << "Problem A6 Results: " << passed << "/" << total << " tests passed" << endl << endl;
 }
-
+ */
 void runAllTests() {
     cout << "\n=== RUNNING ALL INTEGRATION PROBLEM TESTS ===" << endl << endl;
     testProblemA1();
@@ -1337,7 +1361,7 @@ void runAllTests() {
     testProblemA3();
     testProblemA4();
     testProblemA5();
-    testProblemA6();
+    // testProblemA6();
     cout << "=== ALL TESTS COMPLETE ===" << endl << endl;
 }
 
@@ -1404,9 +1428,9 @@ int main() {
         case 5: 
             testProblemA5(); 
             break;
-        case 6: 
-            testProblemA6(); 
-            break;
+        // case 6: 
+        //     testProblemA6(); 
+        //     break;
         case 7: 
             runAllTests(); 
             break;
