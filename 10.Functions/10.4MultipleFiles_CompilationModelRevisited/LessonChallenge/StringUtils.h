@@ -1,4 +1,3 @@
-// Function Declarations (would be in StringUtils.h)
 #include <string>
 using namespace std;
 int countVowels(const string& str);
