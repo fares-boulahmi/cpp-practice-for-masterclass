@@ -4,7 +4,8 @@
 #include <string>
 #include <cmath>
 #include <iomanip>
-
+#include <cstring>
+#include <climits>
 using namespace std;
 
 // ============================================================================
@@ -34,19 +35,30 @@ using namespace std;
 // - Use 3.14159 for π
 
 // TODO: Implement these three overloaded functions
-int calculateArea(int side) {
+int calculateArea(int side)
+{
+
     // TODO: Implement square area calculation
     // Hint: Area of square = side * side
+    int square = side * side;
+    return square;
 }
 
-int calculateArea(int length, int width) {
+int calculateArea(int length, int width)
+{
     // TODO: Implement rectangle area calculation
     // Hint: Area of rectangle = length * width
+    int rectangle = length * width;
+    return rectangle;
 }
 
-double calculateArea(double radius) {
+double calculateArea(double radius)
+{
     // TODO: Implement circle area calculation
     // Hint: Area of circle = π * radius * radius (use 3.14159 for π)
+    double r = 3.14159;
+    double circle = r * radius * radius;
+    return circle;
 }
 
 // ============================================================================
@@ -83,19 +95,30 @@ double calculateArea(double radius) {
 // - Use integer division where applicable
 
 // TODO: Implement these three overloaded functions
-int convertTemperature(int celsius) {
+int convertTemperature(int celsius)
+{
     // TODO: Convert Celsius to Fahrenheit
     // Hint: F = (C * 9/5) + 32
+    int f = (celsius * 9 / 5) + 32;
+    return f;
 }
 
-int convertTemperature(int fahrenheit, char scale) {
+int convertTemperature(int fahrenheit, char scale)
+{
     // TODO: Convert Fahrenheit to Celsius (scale will be 'F')
     // Hint: C = (F - 32) * 5/9
+    int C = (fahrenheit - 32) * 5 / 9;
+    return C;
 }
 
-void convertTemperature(int* temps, int size) {
+void convertTemperature(int *temps, int size)
+{
     // TODO: Convert array of Celsius to Fahrenheit in-place
     // Hint: Loop through array and apply conversion to each element
+    for (int i = 0; i < size; i++)
+    {
+        temps[i] = (temps[i] * 9 / 5) + 32;
+    }
 }
 
 // ============================================================================
@@ -127,19 +150,55 @@ void convertTemperature(int* temps, int size) {
 // - Multiple spaces count as single separator
 
 // TODO: Implement these three overloaded functions
-int processString(string text) {
+int processString(string text)
+{
     // TODO: Count vowels (a, e, i, o, u) case-insensitive
     // Hint: Loop through string, check if each char is a vowel
+    int result = 0;
+    char vowels[]{"aeuio"};
+    for (size_t i = 0; i < text.size(); i++)
+    {
+        if (strchr(vowels, tolower(text[i])))
+        {
+            result++;
+        }
+    }
+
+    return result;
 }
 
-int processString(string text, char target) {
+int processString(string text, char target)
+{
     // TODO: Count occurrences of target character (case-sensitive)
     // Hint: Loop through string, count matches with target
+    int result = 0;
+    for (size_t i = 0; i < text.size(); i++)
+    {
+        if (text[i] == target)
+        {
+            result++;
+        }
+    }
+
+    return result;
 }
 
-int processString(string text, bool countWords) {
+int processString(string text, bool countWords)
+{
     // TODO: Count words separated by spaces
     // Hint: Count transitions from space to non-space character
+    if (!countWords)
+        return 0;
+    int result{};
+    for (size_t i = 0; i < text.size(); i++)
+    {
+        if (isspace(text[i]))
+        {
+            result++;
+        }
+    }
+    result++;
+    return result;
 }
 
 // ============================================================================
@@ -175,302 +234,372 @@ int processString(string text, bool countWords) {
 // - For std dev, mean is pre-calculated
 
 // TODO: Implement these four overloaded functions
-int calculate(int* arr, int size) {
+int calculate(int *arr, int size)
+{
     // TODO: Calculate sum of array elements
     // Hint: Loop and accumulate
+    int sum{};
+    for (int i = 0; i < size; i++)
+    {
+        sum += arr[i];
+    }
+
+    return sum;
 }
 
-int calculate(int* arr, int size, char mode) {
+int calculate(int *arr, int size, char mode)
+{
     // TODO: If mode is 's' return sum, if mode is 'a' return average
     // Hint: Reuse sum logic, divide for average
+    int sum{};
+    for (int i = 0; i < size; i++)
+    {
+        sum += arr[i];
+    }
+
+    if (mode == 's')
+    {
+        return sum;
+    }
+    else
+    {
+        int avr = sum / size;
+        return avr;
+    }
 }
 
-int calculate(int* arr, int size, bool findRange) {
+int calculate(int *arr, int size, bool findRange)
+{
     // TODO: Find range (max - min)
     // Hint: Find max and min values, then subtract
+    int sub{};
+    if (size != 0)
+    {
+        int maxVal = INT_MIN;
+        int minVal = INT_MAX;
+        for (int i = 0; i < size; i++)
+        {
+            if (arr[i] > maxVal)
+            {
+                maxVal = arr[i];
+            }
+            if (arr[i] < minVal)
+            {
+                minVal = arr[i];
+            }
+        }
+
+        sub = maxVal - minVal;
+        return sub;
+    }
+
+    return sub;
 }
 
-double calculate(double* arr, int size, double mean) {
+double calculate(double *arr, int size, double mean)
+{
     // TODO: Calculate standard deviation
     // Hint: sqrt(sum((x - mean)²) / size)
     // Use sqrt() from cmath
+    int sum = 0;
+    double  stddev{};
+
+
+    // second step calc Subtract the mean from each number and square the result:
+    
+    double  sumSquaredDifferences = 0;
+    for (int i = 0; i < size; ++i)
+    {
+        double temp = arr[i] - mean;
+        sumSquaredDifferences += temp * temp;
+    }
+    sumSquaredDifferences = sumSquaredDifferences/size;
+
+    // final step the stddev
+    stddev = sqrt(sumSquaredDifferences);
+    return stddev;
 }
 
 // ============================================================================
 // TEST FUNCTIONS
 // ============================================================================
 
-void testProblem1() {
+void testProblem1()
+{
     cout << "\n========================================" << endl;
     cout << "Testing Problem 1: Area Calculator" << endl;
     cout << "========================================" << endl;
-    
+
     // Test Case 1: Square with side 5
     // Calculation: 5 * 5 = 25
-    cout << "Test 1 (Square side=5): " 
-         << (calculateArea(5) == 25 ? "PASS" : "FAIL") 
+    cout << "Test 1 (Square side=5): "
+         << (calculateArea(5) == 25 ? "PASS" : "FAIL")
          << " (Expected: 25)" << endl;
-    
+
     // Test Case 2: Square with side 1
     // Calculation: 1 * 1 = 1
-    cout << "Test 2 (Square side=1): " 
-         << (calculateArea(1) == 1 ? "PASS" : "FAIL") 
+    cout << "Test 2 (Square side=1): "
+         << (calculateArea(1) == 1 ? "PASS" : "FAIL")
          << " (Expected: 1)" << endl;
-    
+
     // Test Case 3: Square with side 10
     // Calculation: 10 * 10 = 100
-    cout << "Test 3 (Square side=10): " 
-         << (calculateArea(10) == 100 ? "PASS" : "FAIL") 
+    cout << "Test 3 (Square side=10): "
+         << (calculateArea(10) == 100 ? "PASS" : "FAIL")
          << " (Expected: 100)" << endl;
-    
+
     // Test Case 4: Rectangle 4x6
     // Calculation: 4 * 6 = 24
-    cout << "Test 4 (Rectangle 4x6): " 
-         << (calculateArea(4, 6) == 24 ? "PASS" : "FAIL") 
+    cout << "Test 4 (Rectangle 4x6): "
+         << (calculateArea(4, 6) == 24 ? "PASS" : "FAIL")
          << " (Expected: 24)" << endl;
-    
+
     // Test Case 5: Rectangle 5x5 (same as square)
     // Calculation: 5 * 5 = 25
-    cout << "Test 5 (Rectangle 5x5): " 
-         << (calculateArea(5, 5) == 25 ? "PASS" : "FAIL") 
+    cout << "Test 5 (Rectangle 5x5): "
+         << (calculateArea(5, 5) == 25 ? "PASS" : "FAIL")
          << " (Expected: 25)" << endl;
-    
+
     // Test Case 6: Rectangle 1x100
     // Calculation: 1 * 100 = 100
-    cout << "Test 6 (Rectangle 1x100): " 
-         << (calculateArea(1, 100) == 100 ? "PASS" : "FAIL") 
+    cout << "Test 6 (Rectangle 1x100): "
+         << (calculateArea(1, 100) == 100 ? "PASS" : "FAIL")
          << " (Expected: 100)" << endl;
-    
+
     // Test Case 7: Circle with radius 3.0
     // Calculation: 3.14159 * 3.0 * 3.0 = 28.27431
-    cout << "Test 7 (Circle r=3.0): " 
-         << (abs(calculateArea(3.0) - 28.27431) < 0.01 ? "PASS" : "FAIL") 
+    cout << "Test 7 (Circle r=3.0): "
+         << (abs(calculateArea(3.0) - 28.27431) < 0.01 ? "PASS" : "FAIL")
          << " (Expected: ~28.27)" << endl;
-    
+
     // Test Case 8: Circle with radius 1.0
     // Calculation: 3.14159 * 1.0 * 1.0 = 3.14159
-    cout << "Test 8 (Circle r=1.0): " 
-         << (abs(calculateArea(1.0) - 3.14159) < 0.01 ? "PASS" : "FAIL") 
+    cout << "Test 8 (Circle r=1.0): "
+         << (abs(calculateArea(1.0) - 3.14159) < 0.01 ? "PASS" : "FAIL")
          << " (Expected: ~3.14)" << endl;
-    
+
     // Test Case 9: Circle with radius 5.5
     // Calculation: 3.14159 * 5.5 * 5.5 = 95.03317
-    cout << "Test 9 (Circle r=5.5): " 
-         << (abs(calculateArea(5.5) - 95.03317) < 0.01 ? "PASS" : "FAIL") 
+    cout << "Test 9 (Circle r=5.5): "
+         << (abs(calculateArea(5.5) - 95.03317) < 0.01 ? "PASS" : "FAIL")
          << " (Expected: ~95.03)" << endl;
 }
 
-void testProblem2() {
+void testProblem2()
+{
     cout << "\n========================================" << endl;
     cout << "Testing Problem 2: Temperature Converter" << endl;
     cout << "========================================" << endl;
-    
+
     // Test Case 1: 0°C to Fahrenheit
     // Calculation: (0 * 9/5) + 32 = 0 + 32 = 32
-    cout << "Test 1 (0°C to °F): " 
-         << (convertTemperature(0) == 32 ? "PASS" : "FAIL") 
+    cout << "Test 1 (0°C to °F): "
+         << (convertTemperature(0) == 32 ? "PASS" : "FAIL")
          << " (Expected: 32)" << endl;
-    
+
     // Test Case 2: 100°C to Fahrenheit
     // Calculation: (100 * 9/5) + 32 = 180 + 32 = 212
-    cout << "Test 2 (100°C to °F): " 
-         << (convertTemperature(100) == 212 ? "PASS" : "FAIL") 
+    cout << "Test 2 (100°C to °F): "
+         << (convertTemperature(100) == 212 ? "PASS" : "FAIL")
          << " (Expected: 212)" << endl;
-    
+
     // Test Case 3: -40°C to Fahrenheit
     // Calculation: (-40 * 9/5) + 32 = -72 + 32 = -40
-    cout << "Test 3 (-40°C to °F): " 
-         << (convertTemperature(-40) == -40 ? "PASS" : "FAIL") 
+    cout << "Test 3 (-40°C to °F): "
+         << (convertTemperature(-40) == -40 ? "PASS" : "FAIL")
          << " (Expected: -40)" << endl;
-    
+
     // Test Case 4: 25°C to Fahrenheit
     // Calculation: (25 * 9/5) + 32 = 45 + 32 = 77
-    cout << "Test 4 (25°C to °F): " 
-         << (convertTemperature(25) == 77 ? "PASS" : "FAIL") 
+    cout << "Test 4 (25°C to °F): "
+         << (convertTemperature(25) == 77 ? "PASS" : "FAIL")
          << " (Expected: 77)" << endl;
-    
+
     // Test Case 5: 32°F to Celsius
     // Calculation: (32 - 32) * 5/9 = 0 * 5/9 = 0
-    cout << "Test 5 (32°F to °C): " 
-         << (convertTemperature(32, 'F') == 0 ? "PASS" : "FAIL") 
+    cout << "Test 5 (32°F to °C): "
+         << (convertTemperature(32, 'F') == 0 ? "PASS" : "FAIL")
          << " (Expected: 0)" << endl;
-    
+
     // Test Case 6: 212°F to Celsius
     // Calculation: (212 - 32) * 5/9 = 180 * 5/9 = 100
-    cout << "Test 6 (212°F to °C): " 
-         << (convertTemperature(212, 'F') == 100 ? "PASS" : "FAIL") 
+    cout << "Test 6 (212°F to °C): "
+         << (convertTemperature(212, 'F') == 100 ? "PASS" : "FAIL")
          << " (Expected: 100)" << endl;
-    
+
     // Test Case 7: 68°F to Celsius
     // Calculation: (68 - 32) * 5/9 = 36 * 5/9 = 20
-    cout << "Test 7 (68°F to °C): " 
-         << (convertTemperature(68, 'F') == 20 ? "PASS" : "FAIL") 
+    cout << "Test 7 (68°F to °C): "
+         << (convertTemperature(68, 'F') == 20 ? "PASS" : "FAIL")
          << " (Expected: 20)" << endl;
-    
+
     // Test Case 8: Array conversion {0, 100, -40}
     // Calculations: 0->32, 100->212, -40->-40
     int temps1[3] = {0, 100, -40};
     convertTemperature(temps1, 3);
-    cout << "Test 8 (Array {0,100,-40}): " 
-         << (temps1[0] == 32 && temps1[1] == 212 && temps1[2] == -40 ? "PASS" : "FAIL") 
+    cout << "Test 8 (Array {0,100,-40}): "
+         << (temps1[0] == 32 && temps1[1] == 212 && temps1[2] == -40 ? "PASS" : "FAIL")
          << " (Expected: {32,212,-40})" << endl;
-    
+
     // Test Case 9: Array conversion {25}
     // Calculation: 25->77
     int temps2[1] = {25};
     convertTemperature(temps2, 1);
-    cout << "Test 9 (Array {25}): " 
-         << (temps2[0] == 77 ? "PASS" : "FAIL") 
+    cout << "Test 9 (Array {25}): "
+         << (temps2[0] == 77 ? "PASS" : "FAIL")
          << " (Expected: {77})" << endl;
 }
 
-void testProblem3() {
+void testProblem3()
+{
     cout << "\n========================================" << endl;
     cout << "Testing Problem 3: String Processor" << endl;
     cout << "========================================" << endl;
-    
+
     // Test Case 1: Count vowels in "Hello World"
     // Vowels: e, o, o = 3 vowels
-    cout << "Test 1 (Vowels in 'Hello World'): " 
-         << (processString("Hello World") == 3 ? "PASS" : "FAIL") 
+    cout << "Test 1 (Vowels in 'Hello World'): "
+         << (processString("Hello World") == 3 ? "PASS" : "FAIL")
          << " (Expected: 3)" << endl;
-    
+
     // Test Case 2: Count vowels in "AEIOUaeiou"
     // Vowels: all 10 characters = 10 vowels
-    cout << "Test 2 (Vowels in 'AEIOUaeiou'): " 
-         << (processString("AEIOUaeiou") == 10 ? "PASS" : "FAIL") 
+    cout << "Test 2 (Vowels in 'AEIOUaeiou'): "
+         << (processString("AEIOUaeiou") == 10 ? "PASS" : "FAIL")
          << " (Expected: 10)" << endl;
-    
+
     // Test Case 3: Count vowels in "xyz"
     // Vowels: none = 0 vowels
-    cout << "Test 3 (Vowels in 'xyz'): " 
-         << (processString("xyz") == 0 ? "PASS" : "FAIL") 
+    cout << "Test 3 (Vowels in 'xyz'): "
+         << (processString("xyz") == 0 ? "PASS" : "FAIL")
          << " (Expected: 0)" << endl;
-    
+
     // Test Case 4: Count vowels in "Programming"
     // Vowels: o, a, i = 3 vowels
-    cout << "Test 4 (Vowels in 'Programming'): " 
-         << (processString("Programming") == 3 ? "PASS" : "FAIL") 
+    cout << "Test 4 (Vowels in 'Programming'): "
+         << (processString("Programming") == 3 ? "PASS" : "FAIL")
          << " (Expected: 3)" << endl;
-    
+
     // Test Case 5: Count 'l' in "Hello World"
     // Occurrences: l, l, l = 3
-    cout << "Test 5 (Count 'l' in 'Hello World'): " 
-         << (processString("Hello World", 'l') == 3 ? "PASS" : "FAIL") 
+    cout << "Test 5 (Count 'l' in 'Hello World'): "
+         << (processString("Hello World", 'l') == 3 ? "PASS" : "FAIL")
          << " (Expected: 3)" << endl;
-    
+
     // Test Case 6: Count 'o' in "Hello World"
     // Occurrences: o, o = 2
-    cout << "Test 6 (Count 'o' in 'Hello World'): " 
-         << (processString("Hello World", 'o') == 2 ? "PASS" : "FAIL") 
+    cout << "Test 6 (Count 'o' in 'Hello World'): "
+         << (processString("Hello World", 'o') == 2 ? "PASS" : "FAIL")
          << " (Expected: 2)" << endl;
-    
+
     // Test Case 7: Count 'x' in "Hello World"
     // Occurrences: none = 0
-    cout << "Test 7 (Count 'x' in 'Hello World'): " 
-         << (processString("Hello World", 'x') == 0 ? "PASS" : "FAIL") 
+    cout << "Test 7 (Count 'x' in 'Hello World'): "
+         << (processString("Hello World", 'x') == 0 ? "PASS" : "FAIL")
          << " (Expected: 0)" << endl;
-    
+
     // Test Case 8: Count words in "Hello World"
     // Words: "Hello" and "World" = 2 words
-    cout << "Test 8 (Words in 'Hello World'): " 
-         << (processString("Hello World", true) == 2 ? "PASS" : "FAIL") 
+    cout << "Test 8 (Words in 'Hello World'): "
+         << (processString("Hello World", true) == 2 ? "PASS" : "FAIL")
          << " (Expected: 2)" << endl;
-    
+
     // Test Case 9: Count words in "One Two Three Four"
     // Words: "One", "Two", "Three", "Four" = 4 words
-    cout << "Test 9 (Words in 'One Two Three Four'): " 
-         << (processString("One Two Three Four", true) == 4 ? "PASS" : "FAIL") 
+    cout << "Test 9 (Words in 'One Two Three Four'): "
+         << (processString("One Two Three Four", true) == 4 ? "PASS" : "FAIL")
          << " (Expected: 4)" << endl;
-    
+
     // Test Case 10: Count words in "SingleWord"
     // Words: "SingleWord" = 1 word
-    cout << "Test 10 (Words in 'SingleWord'): " 
-         << (processString("SingleWord", true) == 1 ? "PASS" : "FAIL") 
+    cout << "Test 10 (Words in 'SingleWord'): "
+         << (processString("SingleWord", true) == 1 ? "PASS" : "FAIL")
          << " (Expected: 1)" << endl;
 }
 
-void testProblem4() {
+void testProblem4()
+{
     cout << "\n========================================" << endl;
     cout << "Testing Problem 4: Statistical Calculator" << endl;
     cout << "========================================" << endl;
-    
+
     // Test Case 1: Sum of {1,2,3,4,5}
     // Calculation: 1+2+3+4+5 = 15
     int arr1[] = {1, 2, 3, 4, 5};
-    cout << "Test 1 (Sum {1,2,3,4,5}): " 
-         << (calculate(arr1, 5) == 15 ? "PASS" : "FAIL") 
+    cout << "Test 1 (Sum {1,2,3,4,5}): "
+         << (calculate(arr1, 5) == 15 ? "PASS" : "FAIL")
          << " (Expected: 15)" << endl;
-    
+
     // Test Case 2: Sum of {10}
     // Calculation: 10 = 10
     int arr2[] = {10};
-    cout << "Test 2 (Sum {10}): " 
-         << (calculate(arr2, 1) == 10 ? "PASS" : "FAIL") 
+    cout << "Test 2 (Sum {10}): "
+         << (calculate(arr2, 1) == 10 ? "PASS" : "FAIL")
          << " (Expected: 10)" << endl;
-    
+
     // Test Case 3: Sum of {-5, 5, -3, 3}
     // Calculation: -5+5-3+3 = 0
     int arr3[] = {-5, 5, -3, 3};
-    cout << "Test 3 (Sum {-5,5,-3,3}): " 
-         << (calculate(arr3, 4) == 0 ? "PASS" : "FAIL") 
+    cout << "Test 3 (Sum {-5,5,-3,3}): "
+         << (calculate(arr3, 4) == 0 ? "PASS" : "FAIL")
          << " (Expected: 0)" << endl;
-    
+
     // Test Case 4: Sum mode 's' for {2,4,6,8}
     // Calculation: 2+4+6+8 = 20
     int arr4[] = {2, 4, 6, 8};
-    cout << "Test 4 (Sum mode {2,4,6,8}): " 
-         << (calculate(arr4, 4, 's') == 20 ? "PASS" : "FAIL") 
+    cout << "Test 4 (Sum mode {2,4,6,8}): "
+         << (calculate(arr4, 4, 's') == 20 ? "PASS" : "FAIL")
          << " (Expected: 20)" << endl;
-    
+
     // Test Case 5: Average mode 'a' for {2,4,6,8}
     // Calculation: (2+4+6+8)/4 = 20/4 = 5
-    cout << "Test 5 (Avg mode {2,4,6,8}): " 
-         << (calculate(arr4, 4, 'a') == 5 ? "PASS" : "FAIL") 
+    cout << "Test 5 (Avg mode {2,4,6,8}): "
+         << (calculate(arr4, 4, 'a') == 5 ? "PASS" : "FAIL")
          << " (Expected: 5)" << endl;
-    
+
     // Test Case 6: Average mode 'a' for {1,2,3,4,5}
     // Calculation: (1+2+3+4+5)/5 = 15/5 = 3
-    cout << "Test 6 (Avg mode {1,2,3,4,5}): " 
-         << (calculate(arr1, 5, 'a') == 3 ? "PASS" : "FAIL") 
+    cout << "Test 6 (Avg mode {1,2,3,4,5}): "
+         << (calculate(arr1, 5, 'a') == 3 ? "PASS" : "FAIL")
          << " (Expected: 3)" << endl;
-    
+
     // Test Case 7: Range for {1,2,3,4,5}
     // Calculation: max=5, min=1, range=5-1=4
-    cout << "Test 7 (Range {1,2,3,4,5}): " 
-         << (calculate(arr1, 5, true) == 4 ? "PASS" : "FAIL") 
+    cout << "Test 7 (Range {1,2,3,4,5}): "
+         << (calculate(arr1, 5, true) == 4 ? "PASS" : "FAIL")
          << " (Expected: 4)" << endl;
-    
+
     // Test Case 8: Range for {-10, 5, 20, -5}
     // Calculation: max=20, min=-10, range=20-(-10)=30
     int arr5[] = {-10, 5, 20, -5};
-    cout << "Test 8 (Range {-10,5,20,-5}): " 
-         << (calculate(arr5, 4, true) == 30 ? "PASS" : "FAIL") 
+    cout << "Test 8 (Range {-10,5,20,-5}): "
+         << (calculate(arr5, 4, true) == 30 ? "PASS" : "FAIL")
          << " (Expected: 30)" << endl;
-    
+
     // Test Case 9: Range for {7}
     // Calculation: max=7, min=7, range=7-7=0
     int arr6[] = {7};
-    cout << "Test 9 (Range {7}): " 
-         << (calculate(arr6, 1, true) == 0 ? "PASS" : "FAIL") 
+    cout << "Test 9 (Range {7}): "
+         << (calculate(arr6, 1, true) == 0 ? "PASS" : "FAIL")
          << " (Expected: 0)" << endl;
-    
+
     // Test Case 10: Std dev for {1.0, 2.0, 3.0} with mean=2.0
     // Calculation: sqrt(((1-2)² + (2-2)² + (3-2)²)/3) = sqrt((1+0+1)/3) = sqrt(2/3) = 0.8164...
     double arr7[] = {1.0, 2.0, 3.0};
-    cout << "Test 10 (StdDev {1,2,3} mean=2): " 
-         << (abs(calculate(arr7, 3, 2.0) - 0.8164) < 0.01 ? "PASS" : "FAIL") 
+    cout << "Test 10 (StdDev {1,2,3} mean=2): "
+         << (abs(calculate(arr7, 3, 2.0) - 0.8164) < 0.01 ? "PASS" : "FAIL")
          << " (Expected: ~0.816)" << endl;
-    
+
     // Test Case 11: Std dev for {2.0, 4.0, 6.0, 8.0} with mean=5.0
     // Calculation: sqrt(((2-5)² + (4-5)² + (6-5)² + (8-5)²)/4) = sqrt((9+1+1+9)/4) = sqrt(20/4) = sqrt(5) = 2.236...
     double arr8[] = {2.0, 4.0, 6.0, 8.0};
-    cout << "Test 11 (StdDev {2,4,6,8} mean=5): " 
-         << (abs(calculate(arr8, 4, 5.0) - 2.236) < 0.01 ? "PASS" : "FAIL") 
+    cout << "Test 11 (StdDev {2,4,6,8} mean=5): "
+         << (abs(calculate(arr8, 4, 5.0) - 2.236) < 0.01 ? "PASS" : "FAIL")
          << " (Expected: ~2.236)" << endl;
 }
 
-int main() {
+int main()
+{
     int choice;
     cout << "\n============================================" << endl;
     cout << "  Function Overloading Practice Problems" << endl;
@@ -484,30 +613,31 @@ int main() {
     cout << "\nEnter your choice: ";
     cin >> choice;
 
-    switch(choice) {
-        case 1: 
-            testProblem1(); 
-            break;
-        case 2: 
-            testProblem2(); 
-            break;
-        case 3: 
-            testProblem3(); 
-            break;
-        case 4: 
-            testProblem4(); 
-            break;
-        case 5:
-            testProblem1();
-            testProblem2();
-            testProblem3();
-            testProblem4();
-            cout << "\n========================================" << endl;
-            cout << "All tests completed!" << endl;
-            cout << "========================================" << endl;
-            break;
-        default: 
-            cout << "Invalid choice!" << endl;
+    switch (choice)
+    {
+    case 1:
+        testProblem1();
+        break;
+    case 2:
+        testProblem2();
+        break;
+    case 3:
+        testProblem3();
+        break;
+    case 4:
+        testProblem4();
+        break;
+    case 5:
+        testProblem1();
+        testProblem2();
+        testProblem3();
+        testProblem4();
+        cout << "\n========================================" << endl;
+        cout << "All tests completed!" << endl;
+        cout << "========================================" << endl;
+        break;
+    default:
+        cout << "Invalid choice!" << endl;
     }
 
     return 0;
