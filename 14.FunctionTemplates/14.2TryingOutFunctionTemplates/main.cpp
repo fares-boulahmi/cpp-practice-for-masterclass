@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+using namespace std;
 
 template <typename T>
 T maximum(T a , T b){
@@ -16,7 +17,7 @@ int main(){
     int* p_y{&y};
 
     auto result = maximum(p_x,p_y);
-    std::cout << "result : " << *result << std::endl;
+    cout << "result : " << *result << endl;
    
     return 0;
 }
