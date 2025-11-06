@@ -65,12 +65,35 @@ template<typename T>
 T findMax(T a, T b, T c) {
     // TODO: Solve using function template with comparison operators
     // Hint: Compare pairs and return the largest
-    return T{};
+    T max = a;
+    if (max < b)
+    {
+       max = b;
+    }
+    if (max < c)
+    {
+       max = c;
+    }
+    
+    
+    return max;
 }
 
 template<typename T>
 T findMin(T a, T b, T c) {
     // TODO: Solve using function template with comparison operators
+     T min = a;
+    if (min > b)
+    {
+       min = b;
+    }
+    if (min > c)
+    {
+       min = c;
+    }
+    
+    
+    return min;
     return T{};
 }
 
@@ -78,6 +101,7 @@ template<typename T>
 bool inRange(T value, T minVal, T maxVal) {
     // TODO: Solve using function template with comparison operators
     // Hint: Check if value >= minVal && value <= maxVal
+    if ( value >= minVal && value <= maxVal) return 1;
     return 0;
 }
 
@@ -105,6 +129,24 @@ void searchArray(const T* arr, size_t size, T searchValue,
     // TODO: Solve using template parameters by reference for output
     // Hint: Initialize firstIndex to -1, count to 0, found to false
     // Then iterate and update these values accordingly
+    firstIndex = -1;
+    count = 0;
+    found = 0;
+    if (size == 0) return;
+    for (size_t i = 0; i < size; i++)
+    {
+        if (arr[i] == searchValue)
+        {
+            if (firstIndex == -1 )
+            {
+                firstIndex = i;
+            }
+            count++;
+            found = 1;
+        }
+        
+    }
+    
 }
 
 // Problem A4: Complex Synthesis - Generic Swap with Type Transformation

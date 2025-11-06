@@ -29,23 +29,55 @@ using namespace std;
 
 // Generic template
 template<typename T>
-void printValue(T value) {
+T printValue(T value) { 
     // TODO: Implement generic version
     // Hint: This is the fallback for types without specialization
+    cout << endl;
+    cout << "the value is : " << value << endl;
+    return ;
 }
 
 // TODO: Create template specialization for int
 // Hint: Use template<> syntax
+template <>
+int printValue<int> (int value) {
+     cout << endl;
+     cout << "\"Integer: "<< value << "\"" << endl;
+     return value;
+}
 
 // TODO: Create template specialization for double
 // Hint: Use cout << fixed << setprecision(2)
-
+template <>
+double printValue<double> (double value) {
+     cout << endl;     
+     cout << "\"Decimal: "<< fixed << setprecision(2) << value << "\"" << endl;
+     return value;
+}
 // TODO: Create template specialization for char
 // Hint: Print with single quotes around the character
-
+template <>
+char printValue<char> (char value) {
+     cout << endl;
+     cout << "\"Character: '"<< value << "' \"" << endl;
+     return value;
+}
 // TODO: Create template specialization for bool
 // Hint: Use conditional to print "true" or "false" as text
-
+template <>
+bool printValue<bool> (bool value) {
+     cout << endl;
+     if (value )
+     {
+          cout << "\"Boolean: true \"" << endl;
+     }
+     else
+     {
+          cout << "\"Boolean: false \"" << endl;
+     }
+     
+     return value;
+}
 // ============================================================================
 // Problem 2: Easy 2 - Array Size Calculator
 // ============================================================================
@@ -68,17 +100,27 @@ void printValue(T value) {
 
 // Generic template
 template<typename T>
-int getSize(T value) {
+T getSize(T value) {
     // TODO: Implement generic version - return 1 for single values
     // Hint: Single values have size 1
+    return 1;
 }
+
 
 // TODO: Create specialization for C-style arrays
 // Hint: Use template<typename T, int N> for arrays, return N
+ template<typename T, int N> 
+ int getSize(T (&value)[N]) {
 
+     return size(value);
+}
 // TODO: Create specialization for char* (C-strings)
 // Hint: Loop through until '\0' and count characters
-
+template<int N> 
+int getSize(char (&value)[N]) {
+     int sizes = size(value) - 1;
+     return sizes;
+ }
 // ============================================================================
 // Problem 3: Medium - Smart Comparator
 // ============================================================================
@@ -107,17 +149,42 @@ template<typename T>
 bool isEqual(T a, T b) {
     // TODO: Implement generic version using == operator
     // Hint: Simple equality check
+    if (a != b) return false;
+    return true;
 }
 
 // TODO: Create specialization for double
 // Hint: Use abs(a - b) < 0.0001 for floating point comparison
+template<>
+bool isEqual<double> (double a , double b) {
+     if (abs(a - b ) < 0.0001) return true;
+     return false;
+}
 
 // TODO: Create specialization for char* (C-strings)
 // Hint: Compare character by character, check lengths match
-
+template<size_t N>
+bool isEqual(char (&a)[N] , char (&b)[N]) {
+     if (size(a) != size(b)) return false;
+     for (size_t i = 0; i < size(a); i++)
+     {
+          if (a[i] != b[i]) return false ;
+     }
+     
+     return true ;
+}
 // TODO: Create specialization for arrays (bonus)
 // Hint: template<typename T, int N>, compare each element
-
+template<typename T , size_t N>
+bool isEqual(T (&a)[N] , T (&b)[N]) {
+     if (size(a) != size(b)) return false;
+     for (size_t i = 0; i < size(a); i++)
+     {
+          if (a[i] != b[i]) return false ;
+     }
+     
+     return true ;
+}
 // ============================================================================
 // Problem 4: Hard - Type Converter with Validation
 // ============================================================================
@@ -149,6 +216,7 @@ template<typename From, typename To>
 To convert(From value) {
     // TODO: Implement generic version using static_cast
     // Hint: return static_cast<To>(value);
+    return static_cast<To>(0);
 }
 
 // TODO: Create specialization for int to char
