@@ -50,7 +50,7 @@ int main(){
 	double c_0 {11.1};
 	double c_1 {1.9};
 	auto result_c = add(c_0,c_1);
-    cout << "result_c : " << result_c << endl;
+    cout << "result_c : " << result_c << endl; // this will cause error 
  
   
     return 0;

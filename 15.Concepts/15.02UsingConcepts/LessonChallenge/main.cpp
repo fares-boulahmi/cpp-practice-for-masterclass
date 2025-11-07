@@ -33,6 +33,7 @@ template<Arithmetic T>
 T problem1Solution(T a, T b) {
     // TODO: Implement your solution here using C++20 Concepts
     // Hint: Simply return the sum of a and b. The concept already constrains the types!
+    return T{};
 }
 
 // ============================================================================
@@ -65,6 +66,7 @@ template<Numeric T>
 int problem2Solution(T arr[], int size, T threshold) {
     // TODO: Implement your solution here using C++20 Concepts
     // Hint: Loop through the array and count elements greater than threshold
+    return 0;
 }
 
 // ============================================================================
@@ -97,6 +99,7 @@ T problem3Solution(T arr[], int size) {
     // TODO: Implement your solution here using C++20 Concepts
     // Hint: Initialize min and max with first element, then iterate through
     // the rest to find actual min and max values, return their difference
+    return T{};
 }
 
 // ============================================================================
@@ -136,6 +139,7 @@ double problem4Solution(T arr[], int size) {
     // 2. For each element, calculate (element - mean)²
     // 3. Sum all the squared differences
     // 4. Return the sum as double
+    return  0;
 }
 
 // ============================================================================
