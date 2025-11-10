@@ -27,13 +27,13 @@ using namespace std;
 // ============================================================================
 
 template<typename T>
-concept Arithmetic = std::integral<T> || std::floating_point<T>;
+concept Arithmetic = integral<T> || floating_point<T>;
 
 template<Arithmetic T>
 T problem1Solution(T a, T b) {
     // TODO: Implement your solution here using C++20 Concepts
     // Hint: Simply return the sum of a and b. The concept already constrains the types!
-    return T{};
+    return a + b;
 }
 
 // ============================================================================
@@ -66,7 +66,12 @@ template<Numeric T>
 int problem2Solution(T arr[], int size, T threshold) {
     // TODO: Implement your solution here using C++20 Concepts
     // Hint: Loop through the array and count elements greater than threshold
-    return 0;
+    int greater{};
+    for (int  i = 0; i < size; i++)
+    {
+        if (arr[i] > threshold) greater++;
+    }
+    return greater;
 }
 
 // ============================================================================
