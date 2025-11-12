@@ -108,7 +108,13 @@ T problem3Solution(T *arr, int size)
 {
     // TODO: Implement your solution here using requires clause
     // Hint: Loop through the array and accumulate the sum
-    return T();
+    T sum{};
+    for (int i = 0; i < size; i++)
+    {
+        sum += arr[i];
+    }
+
+    return sum;
 }
 
 // ============================================================================

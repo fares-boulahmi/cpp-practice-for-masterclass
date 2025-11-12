@@ -136,6 +136,21 @@ void calculateStats(const vector<T> &numbers)
     // TODO: Implement your solution here
     // Hint: Check if vector is empty first, then sum all elements and calculate average
     // Output format: cout << "Sum: " << sum << ", Average: " << average << endl;
+    if (numbers.size() == 0)
+    {
+        cout << "Sum: " << 0 << ", Average: " << 0 << endl;
+        return;
+    }
+
+    T sum{};
+    double average{};
+    for (size_t i = 0; i < numbers.size(); i++)
+    {
+        sum += numbers[i];
+    }
+    average = static_cast<double>(sum) / static_cast<double>(numbers.size());
+    cout << "Sum: " << sum << ", Average: " << average << endl;
+    return;
 }
 
 // ==================== PROBLEM 4: HARD ====================

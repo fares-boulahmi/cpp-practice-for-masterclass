@@ -84,7 +84,16 @@ auto problem3Solution(const vector<T> &numbers)
 {
      // TODO: Implement your solution here using C++20 Concepts and auto
      // Hint: Sum all elements using auto in a range-based for loop, then divide by size
-     return 0;
+     if (numbers.size() == 0)
+          return 0.0;
+     auto sum = numbers[0];
+     for (size_t i = 1; i < numbers.size(); i++)
+     {
+          sum += numbers[i];
+     }
+     double average = static_cast<double>(sum) / static_cast<double>(numbers.size());
+
+     return average;
 }
 
 // Problem 4: Hard - Generic Container Processor

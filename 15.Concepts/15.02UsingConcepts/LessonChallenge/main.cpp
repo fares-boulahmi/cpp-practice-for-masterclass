@@ -26,11 +26,12 @@ using namespace std;
 // - Should work with any arithmetic type
 // ============================================================================
 
-template<typename T>
+template <typename T>
 concept Arithmetic = integral<T> || floating_point<T>;
 
-template<Arithmetic T>
-T problem1Solution(T a, T b) {
+template <Arithmetic T>
+T problem1Solution(T a, T b)
+{
     // TODO: Implement your solution here using C++20 Concepts
     // Hint: Simply return the sum of a and b. The concept already constrains the types!
     return a + b;
@@ -43,7 +44,7 @@ T problem1Solution(T a, T b) {
 // Create a function that counts how many elements in an array are greater than
 // a given threshold. Use concepts to ensure only numeric types are accepted.
 //
-// Input: 
+// Input:
 // - Array of numeric values
 // - Size of array
 // - Threshold value
@@ -59,17 +60,19 @@ T problem1Solution(T a, T b) {
 // - Handle empty arrays (return 0)
 // ============================================================================
 
-template<typename T>
+template <typename T>
 concept Numeric = std::integral<T> || std::floating_point<T>;
 
-template<Numeric T>
-int problem2Solution(T arr[], int size, T threshold) {
+template <Numeric T>
+int problem2Solution(T arr[], int size, T threshold)
+{
     // TODO: Implement your solution here using C++20 Concepts
     // Hint: Loop through the array and count elements greater than threshold
     int greater{};
-    for (int  i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
     {
-        if (arr[i] > threshold) greater++;
+        if (arr[i] > threshold)
+            greater++;
     }
     return greater;
 }
@@ -96,15 +99,32 @@ int problem2Solution(T arr[], int size, T threshold) {
 // - Array size >= 1
 // ============================================================================
 
-template<typename T>
+template <typename T>
 concept Comparable = std::totally_ordered<T>;
 
-template<Comparable T>
-T problem3Solution(T arr[], int size) {
+template <Comparable T>
+T problem3Solution(T arr[], int size)
+{
     // TODO: Implement your solution here using C++20 Concepts
     // Hint: Initialize min and max with first element, then iterate through
     // the rest to find actual min and max values, return their difference
-    return T{};
+    if (size == 0)
+        return 0;
+    T maxValue = arr[0];
+    T minValue = arr[0];
+    for (int i = 1; i < size; i++)
+    {
+        if (arr[i] > maxValue)
+        {
+            maxValue = arr[i];
+        }
+        if (arr[i] < minValue)
+        {
+            minValue = arr[i];
+        }
+    }
+    T difference = maxValue - minValue;
+    return difference;
 }
 
 // ============================================================================
@@ -129,124 +149,127 @@ T problem3Solution(T arr[], int size) {
 // - Handle single element arrays
 // ============================================================================
 
-template<typename T>
+template <typename T>
 concept NumericType = (std::integral<T> || std::floating_point<T>) && requires(T a, T b) {
     { a + b } -> std::convertible_to<T>;
     { a - b } -> std::convertible_to<T>;
     { a * b } -> std::convertible_to<T>;
 };
 
-template<NumericType T>
-double problem4Solution(T arr[], int size) {
+template <NumericType T>
+double problem4Solution(T arr[], int size)
+{
     // TODO: Implement your solution here using C++20 Concepts
-    // Hint: 
+    // Hint:
     // 1. Calculate the mean (sum of all elements / size)
     // 2. For each element, calculate (element - mean)²
     // 3. Sum all the squared differences
     // 4. Return the sum as double
-    return  0;
+    return 0;
 }
 
 // ============================================================================
 // TEST FUNCTIONS
 // ============================================================================
 
-void testProblem1() {
+void testProblem1()
+{
     cout << "\n=== Testing Problem 1: Type-Safe Addition ===" << endl;
-    
+
     // Test Case 1: Basic positive integers
     // Calculation: 5 + 3 = 8
     // Expected: 8
     cout << "Test 1 (5 + 3): " << (problem1Solution(5, 3) == 8 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 2: Negative integers
     // Calculation: -10 + 7 = -3
     // Expected: -3
     cout << "Test 2 (-10 + 7): " << (problem1Solution(-10, 7) == -3 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 3: Both negative
     // Calculation: -5 + (-3) = -8
     // Expected: -8
     cout << "Test 3 (-5 + -3): " << (problem1Solution(-5, -3) == -8 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 4: Zero handling
     // Calculation: 0 + 15 = 15
     // Expected: 15
     cout << "Test 4 (0 + 15): " << (problem1Solution(0, 15) == 15 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 5: Floating point
     // Calculation: 3.5 + 2.5 = 6.0
     // Expected: 6.0
     cout << "Test 5 (3.5 + 2.5): " << (problem1Solution(3.5, 2.5) == 6.0 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 6: Negative floats
     // Calculation: -1.5 + 4.5 = 3.0
     // Expected: 3.0
     cout << "Test 6 (-1.5 + 4.5): " << (problem1Solution(-1.5, 4.5) == 3.0 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 7: Large numbers
     // Calculation: 1000 + 2000 = 3000
     // Expected: 3000
     cout << "Test 7 (1000 + 2000): " << (problem1Solution(1000, 2000) == 3000 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 8: Same numbers
     // Calculation: 7 + 7 = 14
     // Expected: 14
     cout << "Test 8 (7 + 7): " << (problem1Solution(7, 7) == 14 ? "PASS" : "FAIL") << endl;
 }
 
-void testProblem2() {
+void testProblem2()
+{
     cout << "\n=== Testing Problem 2: Constrained Array Processor ===" << endl;
-    
+
     // Test Case 1: Basic case
     // Array: [1, 5, 3, 8, 2], threshold: 3
     // Elements > 3: 5, 8 = 2 elements
     // Expected: 2
     int arr1[] = {1, 5, 3, 8, 2};
     cout << "Test 1 ([1,5,3,8,2] > 3): " << (problem2Solution(arr1, 5, 3) == 2 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 2: None greater
     // Array: [1, 2, 3], threshold: 5
     // Elements > 5: none = 0 elements
     // Expected: 0
     int arr2[] = {1, 2, 3};
     cout << "Test 2 ([1,2,3] > 5): " << (problem2Solution(arr2, 3, 5) == 0 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 3: All greater
     // Array: [10, 20, 30], threshold: 5
     // Elements > 5: 10, 20, 30 = 3 elements
     // Expected: 3
     int arr3[] = {10, 20, 30};
     cout << "Test 3 ([10,20,30] > 5): " << (problem2Solution(arr3, 3, 5) == 3 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 4: Negative numbers
     // Array: [-5, -2, 3, 7], threshold: 0
     // Elements > 0: 3, 7 = 2 elements
     // Expected: 2
     int arr4[] = {-5, -2, 3, 7};
     cout << "Test 4 ([-5,-2,3,7] > 0): " << (problem2Solution(arr4, 4, 0) == 2 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 5: Single element greater
     // Array: [100], threshold: 50
     // Elements > 50: 100 = 1 element
     // Expected: 1
     int arr5[] = {100};
     cout << "Test 5 ([100] > 50): " << (problem2Solution(arr5, 1, 50) == 1 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 6: Equal to threshold
     // Array: [5, 5, 5, 6], threshold: 5
     // Elements > 5: 6 = 1 element (equal doesn't count)
     // Expected: 1
     int arr6[] = {5, 5, 5, 6};
     cout << "Test 6 ([5,5,5,6] > 5): " << (problem2Solution(arr6, 4, 5) == 1 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 7: Floating point
     // Array: [1.5, 2.5, 3.5], threshold: 2.0
     // Elements > 2.0: 2.5, 3.5 = 2 elements
     // Expected: 2
     double arr7[] = {1.5, 2.5, 3.5};
     cout << "Test 7 ([1.5,2.5,3.5] > 2.0): " << (problem2Solution(arr7, 3, 2.0) == 2 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 8: All equal to threshold
     // Array: [3, 3, 3], threshold: 3
     // Elements > 3: none = 0 elements
@@ -255,58 +278,59 @@ void testProblem2() {
     cout << "Test 8 ([3,3,3] > 3): " << (problem2Solution(arr8, 3, 3) == 0 ? "PASS" : "FAIL") << endl;
 }
 
-void testProblem3() {
+void testProblem3()
+{
     cout << "\n=== Testing Problem 3: Generic Min-Max Finder ===" << endl;
-    
+
     // Test Case 1: Basic case
     // Array: [3, 1, 4, 1, 5]
     // Max: 5, Min: 1, Difference: 5 - 1 = 4
     // Expected: 4
     int arr1[] = {3, 1, 4, 1, 5};
     cout << "Test 1 ([3,1,4,1,5]): " << (problem3Solution(arr1, 5) == 4 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 2: All same
     // Array: [10, 10, 10]
     // Max: 10, Min: 10, Difference: 10 - 10 = 0
     // Expected: 0
     int arr2[] = {10, 10, 10};
     cout << "Test 2 ([10,10,10]): " << (problem3Solution(arr2, 3) == 0 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 3: Negative numbers
     // Array: [-5, -2, -8, -1]
     // Max: -1, Min: -8, Difference: -1 - (-8) = 7
     // Expected: 7
     int arr3[] = {-5, -2, -8, -1};
     cout << "Test 3 ([-5,-2,-8,-1]): " << (problem3Solution(arr3, 4) == 7 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 4: Single element
     // Array: [42]
     // Max: 42, Min: 42, Difference: 42 - 42 = 0
     // Expected: 0
     int arr4[] = {42};
     cout << "Test 4 ([42]): " << (problem3Solution(arr4, 1) == 0 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 5: Two elements
     // Array: [5, 15]
     // Max: 15, Min: 5, Difference: 15 - 5 = 10
     // Expected: 10
     int arr5[] = {5, 15};
     cout << "Test 5 ([5,15]): " << (problem3Solution(arr5, 2) == 10 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 6: Mix of positive and negative
     // Array: [-10, 5, 0, 20, -3]
     // Max: 20, Min: -10, Difference: 20 - (-10) = 30
     // Expected: 30
     int arr6[] = {-10, 5, 0, 20, -3};
     cout << "Test 6 ([-10,5,0,20,-3]): " << (problem3Solution(arr6, 5) == 30 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 7: Descending order
     // Array: [100, 80, 60, 40, 20]
     // Max: 100, Min: 20, Difference: 100 - 20 = 80
     // Expected: 80
     int arr7[] = {100, 80, 60, 40, 20};
     cout << "Test 7 ([100,80,60,40,20]): " << (problem3Solution(arr7, 5) == 80 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 8: Floating point
     // Array: [1.5, 3.7, 2.1]
     // Max: 3.7, Min: 1.5, Difference: 3.7 - 1.5 = 2.2
@@ -316,9 +340,10 @@ void testProblem3() {
     cout << "Test 8 ([1.5,3.7,2.1]): " << (abs(problem3Solution(arr8, 3) - 2.2) < 0.0001 ? "PASS" : "FAIL") << endl;
 }
 
-void testProblem4() {
+void testProblem4()
+{
     cout << "\n=== Testing Problem 4: Statistics Calculator ===" << endl;
-    
+
     // Test Case 1: Basic case
     // Array: [2, 4, 6]
     // Mean: (2+4+6)/3 = 12/3 = 4
@@ -326,7 +351,7 @@ void testProblem4() {
     // Expected: 8.0
     int arr1[] = {2, 4, 6};
     cout << "Test 1 ([2,4,6]): " << (abs(problem4Solution(arr1, 3) - 8.0) < 0.0001 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 2: Sequential numbers
     // Array: [1, 2, 3, 4, 5]
     // Mean: (1+2+3+4+5)/5 = 15/5 = 3
@@ -336,7 +361,7 @@ void testProblem4() {
     // Expected: 10.0
     int arr2[] = {1, 2, 3, 4, 5};
     cout << "Test 2 ([1,2,3,4,5]): " << (abs(problem4Solution(arr2, 5) - 10.0) < 0.0001 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 3: Single element
     // Array: [10]
     // Mean: 10/1 = 10
@@ -344,7 +369,7 @@ void testProblem4() {
     // Expected: 0.0
     int arr3[] = {10};
     cout << "Test 3 ([10]): " << (abs(problem4Solution(arr3, 1) - 0.0) < 0.0001 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 4: All same values
     // Array: [5, 5, 5, 5]
     // Mean: 20/4 = 5
@@ -352,7 +377,7 @@ void testProblem4() {
     // Expected: 0.0
     int arr4[] = {5, 5, 5, 5};
     cout << "Test 4 ([5,5,5,5]): " << (abs(problem4Solution(arr4, 4) - 0.0) < 0.0001 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 5: Negative numbers
     // Array: [-2, 0, 2]
     // Mean: (-2+0+2)/3 = 0/3 = 0
@@ -360,7 +385,7 @@ void testProblem4() {
     // Expected: 8.0
     int arr5[] = {-2, 0, 2};
     cout << "Test 5 ([-2,0,2]): " << (abs(problem4Solution(arr5, 3) - 8.0) < 0.0001 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 6: Two elements
     // Array: [10, 20]
     // Mean: (10+20)/2 = 30/2 = 15
@@ -368,7 +393,7 @@ void testProblem4() {
     // Expected: 50.0
     int arr6[] = {10, 20};
     cout << "Test 6 ([10,20]): " << (abs(problem4Solution(arr6, 2) - 50.0) < 0.0001 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 7: Larger spread
     // Array: [0, 10, 20, 30]
     // Mean: (0+10+20+30)/4 = 60/4 = 15
@@ -378,7 +403,7 @@ void testProblem4() {
     // Expected: 500.0
     int arr7[] = {0, 10, 20, 30};
     cout << "Test 7 ([0,10,20,30]): " << (abs(problem4Solution(arr7, 4) - 500.0) < 0.0001 ? "PASS" : "FAIL") << endl;
-    
+
     // Test Case 8: Floating point
     // Array: [1.0, 2.0, 3.0]
     // Mean: (1.0+2.0+3.0)/3 = 6.0/3 = 2.0
@@ -394,7 +419,8 @@ void testProblem4() {
 // MAIN MENU
 // ============================================================================
 
-int main() {
+int main()
+{
     int choice;
     cout << "\n========================================" << endl;
     cout << "  C++20 Concepts Practice Problems" << endl;
@@ -408,18 +434,28 @@ int main() {
     cout << "Enter your choice: ";
     cin >> choice;
 
-    switch(choice) {
-        case 1: testProblem1(); break;
-        case 2: testProblem2(); break;
-        case 3: testProblem3(); break;
-        case 4: testProblem4(); break;
-        case 5:
-            testProblem1();
-            testProblem2();
-            testProblem3();
-            testProblem4();
-            break;
-        default: cout << "Invalid choice!" << endl;
+    switch (choice)
+    {
+    case 1:
+        testProblem1();
+        break;
+    case 2:
+        testProblem2();
+        break;
+    case 3:
+        testProblem3();
+        break;
+    case 4:
+        testProblem4();
+        break;
+    case 5:
+        testProblem1();
+        testProblem2();
+        testProblem3();
+        testProblem4();
+        break;
+    default:
+        cout << "Invalid choice!" << endl;
     }
 
     return 0;
