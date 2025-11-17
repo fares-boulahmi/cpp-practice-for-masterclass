@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include "Book.h"
+#include "Rectangle.h"
 
 using namespace std;
 
@@ -37,51 +39,8 @@ using namespace std;
 // - title and author are non-empty strings
 
 // Book Class Declaration (would be in Book.h)
-class Book
-{
-private:
-    string title;
-    string author;
-    int pages;
-
-public:
-    Book(string t, string a, int p);
-    string getTitle();
-    string getAuthor();
-    int getPages();
-    int getTotalWords();
-};
 
 // Book Class Implementation (would be in Book.cpp)
-Book::Book(string t, string a, int p)
-{
-    // TODO: Implement constructor
-    // Hint: Initialize all member variables
-}
-
-string Book::getTitle()
-{
-    // TODO: Implement getter
-    // Hint: Return the title member variable
-}
-
-string Book::getAuthor()
-{
-    // TODO: Implement getter
-    // Hint: Return the author member variable
-}
-
-int Book::getPages()
-{
-    // TODO: Implement getter
-    // Hint: Return the pages member variable
-}
-
-int Book::getTotalWords()
-{
-    // TODO: Implement this method
-    // Hint: Multiply pages by 250
-}
 
 // ============================================================================
 // Problem 2: Easy 2 - Rectangle Calculator
@@ -109,42 +68,8 @@ int Book::getTotalWords()
 // - 0.1 <= length, width <= 1000.0
 // - Round diagonal to 2 decimal places for comparison
 
-class Rectangle
-{
-private:
-    double length;
-    double width;
 
-public:
-    Rectangle(double l, double w);
-    double getArea();
-    double getPerimeter();
-    double getDiagonal();
-};
 
-Rectangle::Rectangle(double l, double w)
-{
-    // TODO: Implement constructor
-    // Hint: Initialize length and width
-}
-
-double Rectangle::getArea()
-{
-    // TODO: Implement area calculation
-    // Hint: length * width
-}
-
-double Rectangle::getPerimeter()
-{
-    // TODO: Implement perimeter calculation
-    // Hint: 2 * (length + width)
-}
-
-double Rectangle::getDiagonal()
-{
-    // TODO: Implement diagonal calculation
-    // Hint: Use sqrt() and the Pythagorean theorem
-}
 
 // ============================================================================
 // Problem 3: Medium - Student Grade Manager
@@ -211,24 +136,28 @@ double Student::getAverage()
 {
     // TODO: Implement average calculation
     // Hint: Sum all grades and divide by size()
+    return 0;
 }
 
 char Student::getLetterGrade()
 {
     // TODO: Implement letter grade determination
     // Hint: Use getAverage() and if-else statements
+    return 0;
 }
 
 int Student::getHighestGrade()
 {
     // TODO: Implement finding maximum grade
     // Hint: Loop through grades vector
+    return 0;
 }
 
 int Student::getLowestGrade()
 {
     // TODO: Implement finding minimum grade
     // Hint: Loop through grades vector
+    return 0;
 }
 
 // ============================================================================
@@ -305,12 +234,14 @@ bool BankAccount::withdraw(double amount)
 {
     // TODO: Implement withdraw with validation
     // Hint: Check if balance >= amount, then subtract and record transaction
+    return 0;
 }
 
 double BankAccount::getBalance()
 {
     // TODO: Implement getter
     // Hint: Return balance
+    return 0;
 }
 
 void BankAccount::applyInterest(double rate)
@@ -323,12 +254,14 @@ int BankAccount::getTransactionCount()
 {
     // TODO: Implement transaction count
     // Hint: Return size of transactionHistory vector
+    return 0;
 }
 
 vector<string> BankAccount::getTransactionHistory()
 {
     // TODO: Implement getter
     // Hint: Return transactionHistory vector
+    return {0, 0};
 }
 
 // ============================================================================
@@ -406,7 +339,7 @@ void testProblem1()
     }
 }
 
-void testProblem2()
+ void testProblem2()
 {
     cout << "\n=== Testing Problem 2: Rectangle Calculator ===" << endl;
 
@@ -515,7 +448,7 @@ void testProblem2()
     }
 }
 
-void testProblem3()
+/* void testProblem3()
 {
     cout << "\n=== Testing Problem 3: Student Grade Manager ===" << endl;
 
@@ -662,8 +595,8 @@ void testProblem3()
              << " (Henry: Single grade)" << endl;
     }
 }
-
-void testProblem4()
+ */
+/* void testProblem4()
 {
     cout << "\n=== Testing Problem 4: Bank Account with Transaction History ===" << endl;
 
@@ -802,7 +735,7 @@ void testProblem4()
              << " (High interest - Balance: " << acc8.getBalance() << ")" << endl;
     }
 }
-
+ */
 int main()
 {
     int choice;
@@ -828,16 +761,16 @@ int main()
         testProblem2();
         break;
     case 3:
-        testProblem3();
+        // testProblem3();
         break;
     case 4:
-        testProblem4();
+        // testProblem4();
         break;
     case 5:
         testProblem1();
         testProblem2();
-        testProblem3();
-        testProblem4();
+        // testProblem3();
+        // testProblem4();
         cout << "\n=====================================" << endl;
         cout << "     All Tests Completed!            " << endl;
         cout << "=====================================" << endl;
