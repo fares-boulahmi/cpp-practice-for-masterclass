@@ -59,7 +59,10 @@ public:
 };
 
 int Resource::count = 0;
-
+void instances_funct()
+{
+    Resource resource;
+}
 int problem1Solution(int n)
 {
     // TODO: Implement your solution here using Destructors
@@ -67,7 +70,11 @@ int problem1Solution(int n)
     // When function returns, destructors are called automatically
     // Return Resource::count after objects are destroyed
 
-    return 0; // Placeholder
+    for (int i = 0; i < n; i++)
+    {
+        instances_funct();
+    }
+    return Resource::count; // Placeholder
 }
 
 // ============================================================================
@@ -152,8 +159,9 @@ int problem2Solution(int n)
     // TODO: Implement your solution here using Destructors
     // Hint: Create an ArrayManager object, fill it, calculate sum, and return
     // The destructor will automatically clean up when function returns
-
-    return 0; // Placeholder
+    ArrayManager arr(n);
+    arr.fillSequential();
+    return arr.calculateSum(); // Placeholder
 }
 
 // ============================================================================

@@ -40,28 +40,58 @@ public:
     static string *output;
 
     // TODO: Implement constructor that appends "Base(name)," to *output
+    Base1(string n)
+    {
+        name = n;
+        output = new string{};
+        output->append("Base(");
+        output->append(name);
+        output->append("),");
+    }
 
     // TODO: Implement destructor that appends "~Base(name)," to *output
+    ~Base1()
+    {
+        output->append("~Base(");
+        output->append(name);
+        output->append(")");
+    }
 };
 
 class Derived1 : public Base1
 {
 public:
     // TODO: Implement constructor that appends "Derived(name)," to *output
+    Derived1(string n) : Base1(n)
+    {
+        Base1::output->append("Derived(");
+        Base1::output->append(Base1::name);
+        Base1::output->append("),");
+    }
 
     // TODO: Implement destructor that appends "~Derived(name)," to *output
+    ~Derived1()
+    {
+        Base1::output->append("~Derived(");
+        Base1::output->append(Base1::name);
+        Base1::output->append("),");
+    }
 };
 
 string *Base1::output = nullptr;
-
+void collect_func(string name)
+{
+    Derived1 der1(name);
+}
 string problem1Solution(string objectName)
 {
     // TODO: Implement your solution here
     // Hint: Create a string to collect output, set Base1::output to point to it,
     // create a Derived1 object in a scope block so it destructs,
     // remove trailing comma and return the result
+    collect_func(objectName);
 
-    return ""; // Placeholder
+    return *Base1::output; // Placeholder
 }
 
 // ============================================================================
