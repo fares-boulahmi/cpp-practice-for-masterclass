@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <cstring>
+#include <cmath>
 
 using namespace std;
 
@@ -43,13 +44,23 @@ private:
     int y;
 
 public:
-    Point(int xVal, int yVal) : x(xVal), y(yVal) {}
+    Point(int xVal, int yVal) : x(xVal), y(yVal)
+    {
+        this->x = xVal;
+        this->y = yVal;
+    }
 
     double distanceTo(const Point &other)
     {
         // TODO: Implement using the this pointer to access x and y
         // Hint: Use this->x and this->y to calculate distance
         // Formula: sqrt((other.x - this->x)^2 + (other.y - this->y)^2)
+        // cout << "other x " << other.getX() << " this x is " << this->x << endl;
+        // cout << "other y " << other.getY() << " this y is " << this->y << endl;
+        double xDiff = (other.getX() - this->x);
+        double yDiff = (other.getY() - this->y);
+        double distance = sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        return distance;
     }
 
     int getX() const { return x; }
@@ -91,18 +102,29 @@ private:
     double balance;
 
 public:
-    BankAccount(double initialBalance) : balance(initialBalance) {}
+    BankAccount(double initialBalance) : balance(initialBalance)
+    {
+        balance = initialBalance;
+    }
 
     BankAccount &deposit(double amount)
     {
         // TODO: Add amount to balance and return *this for method chaining
         // Hint: return *this; at the end to enable chaining
+        this->balance += amount;
+        return *this;
     }
 
     BankAccount &withdraw(double amount)
     {
         // TODO: Subtract amount from balance if sufficient funds, return *this
         // Hint: Check if this->balance >= amount before withdrawing
+        if (this->balance >= amount)
+        {
+            this->balance -= amount;
+        }
+
+        return *this;
     }
 
     double getBalance() const { return balance; }
@@ -154,18 +176,21 @@ public:
     {
         // TODO: Compare this employee's salary with other's salary
         // Hint: return this->salary > other.salary;
+        return 0;
     }
 
     bool hasSameSalaryAs(const Employee &other) const
     {
         // TODO: Check if salaries are equal
         // Hint: Use this->salary and other.salary
+        return 0;
     }
 
     const Employee *getHigherPaid(const Employee &other) const
     {
         // TODO: Return pointer to employee with higher salary
         // Hint: if this->salary >= other.salary return this; else return &other;
+        return this;
     }
 
     string getName() const { return name; }
@@ -249,6 +274,7 @@ public:
         // TODO: Append str to the end of current string
         // Hint: Calculate needed size, resize if necessary, use strcat
         // Return *this for method chaining
+        return *this;
     }
 
     StringBuilder &prepend(const char *str)
@@ -256,6 +282,7 @@ public:
         // TODO: Add str to the beginning of current string
         // Hint: Calculate needed size, create temp string, resize, copy
         // Return *this for method chaining
+        return *this;
     }
 
     StringBuilder &clear()
@@ -263,6 +290,7 @@ public:
         // TODO: Clear the string (set to empty)
         // Hint: Set data[0] = '\0' and length = 0
         // Return *this for method chaining
+        return *this;
     }
 
     const char *getString() const
