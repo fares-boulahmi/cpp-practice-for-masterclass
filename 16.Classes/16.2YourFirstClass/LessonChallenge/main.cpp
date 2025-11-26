@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <climits>
 
 using namespace std;
 
@@ -191,6 +192,93 @@ class Student
     // TODO: Implement your solution here
     // Hint: Use a vector to store multiple grades
     // Hint: You'll need to iterate through the vector for calculations
+    string name;
+    int studentId;
+    vector<int> grades{};
+
+public:
+    Student(string n, int i)
+    {
+        name = n;
+        studentId = i;
+    }
+    void addGrade(int grade)
+    {
+        grades.push_back(grade);
+    }
+    double getAverage()
+    {
+        if (grades.size() == 0)
+            return 0;
+        double sum{};
+        for (size_t i = 0; i < grades.size(); i++)
+        {
+            sum += grades[i];
+        }
+        double total = grades.size();
+        return sum / total;
+    }
+    int getHighestGrade()
+    {
+        if (grades.size() == 0)
+            return 0;
+        int max = grades[0];
+        for (size_t i = 1; i < grades.size(); i++)
+        {
+            if (grades[i] > max)
+            {
+                max = grades[i];
+            }
+        }
+        return max;
+    }
+    int getLowestGrade()
+    {
+        if (grades.size() == 0)
+            return 0;
+        int min = grades[0];
+        for (size_t i = 1; i < grades.size(); i++)
+        {
+            if (grades[i] < min)
+            {
+                min = grades[i];
+            }
+        }
+        return min;
+    }
+    size_t getGradeCount()
+    {
+        return grades.size();
+    }
+    string getName()
+    {
+        return name;
+    }
+
+    int getStudentId()
+    {
+        return studentId;
+    }
+    char getLetterGrade()
+    {
+        int grade = this->getAverage();
+        if (grade >= 90)
+        {
+            return 'A';
+        }
+        else if (grade >= 80 && grade <= 89)
+        {
+            return 'B';
+        }
+        else if (grade >= 70 && grade <= 79)
+        {
+            return 'C';
+        }
+        else
+        {
+            return 'D';
+        }
+    }
 };
 
 // ============================================================================
@@ -394,7 +482,7 @@ void testProblem2()
     cout << (rect8.getPerimeter() == 300.0 ? "PASS" : "FAIL") << endl;
 }
 
-/* void testProblem3()
+void testProblem3()
 {
     cout << "\n=== Testing Problem 3: Student Grade Manager ===" << endl;
 
@@ -485,7 +573,7 @@ void testProblem2()
     student8.addGrade(100);
     student8.addGrade(100);
     cout << (student8.getAverage() == 100.0 && student8.getLetterGrade() == 'A' ? "PASS" : "FAIL") << endl;
-} */
+}
 
 /* void testProblem4()
 {
@@ -609,7 +697,7 @@ int main()
         testProblem2();
         break;
     case 3:
-        // testProblem3();
+        testProblem3();
         break;
     case 4:
         // testProblem4();
@@ -617,7 +705,7 @@ int main()
     case 5:
         testProblem1();
         testProblem2();
-        // testProblem3();
+        testProblem3();
         // testProblem4();
         break;
     default:

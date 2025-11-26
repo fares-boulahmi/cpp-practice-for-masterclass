@@ -4,6 +4,7 @@
 #include <cmath>
 #include "Book.h"
 #include "Rectangle.h"
+#include "Student.h"
 
 using namespace std;
 
@@ -68,9 +69,6 @@ using namespace std;
 // - 0.1 <= length, width <= 1000.0
 // - Round diagonal to 2 decimal places for comparison
 
-
-
-
 // ============================================================================
 // Problem 3: Medium - Student Grade Manager
 // ============================================================================
@@ -104,61 +102,6 @@ using namespace std;
 // Constraints:
 // - 0 <= grade <= 100
 // - At least 1 grade will be added before calling methods
-
-class Student
-{
-private:
-    string name;
-    vector<int> grades;
-
-public:
-    Student(string n);
-    void addGrade(int grade);
-    double getAverage();
-    char getLetterGrade();
-    int getHighestGrade();
-    int getLowestGrade();
-};
-
-Student::Student(string n)
-{
-    // TODO: Implement constructor
-    // Hint: Initialize name, grades vector is automatically initialized
-}
-
-void Student::addGrade(int grade)
-{
-    // TODO: Implement adding grade to vector
-    // Hint: Use push_back()
-}
-
-double Student::getAverage()
-{
-    // TODO: Implement average calculation
-    // Hint: Sum all grades and divide by size()
-    return 0;
-}
-
-char Student::getLetterGrade()
-{
-    // TODO: Implement letter grade determination
-    // Hint: Use getAverage() and if-else statements
-    return 0;
-}
-
-int Student::getHighestGrade()
-{
-    // TODO: Implement finding maximum grade
-    // Hint: Loop through grades vector
-    return 0;
-}
-
-int Student::getLowestGrade()
-{
-    // TODO: Implement finding minimum grade
-    // Hint: Loop through grades vector
-    return 0;
-}
 
 // ============================================================================
 // Problem 4: Hard - Bank Account with Transaction History
@@ -339,7 +282,7 @@ void testProblem1()
     }
 }
 
- void testProblem2()
+void testProblem2()
 {
     cout << "\n=== Testing Problem 2: Rectangle Calculator ===" << endl;
 
@@ -448,7 +391,7 @@ void testProblem1()
     }
 }
 
-/* void testProblem3()
+void testProblem3()
 {
     cout << "\n=== Testing Problem 3: Student Grade Manager ===" << endl;
 
@@ -595,7 +538,7 @@ void testProblem1()
              << " (Henry: Single grade)" << endl;
     }
 }
- */
+
 /* void testProblem4()
 {
     cout << "\n=== Testing Problem 4: Bank Account with Transaction History ===" << endl;
@@ -761,7 +704,7 @@ int main()
         testProblem2();
         break;
     case 3:
-        // testProblem3();
+        testProblem3();
         break;
     case 4:
         // testProblem4();
@@ -769,7 +712,7 @@ int main()
     case 5:
         testProblem1();
         testProblem2();
-        // testProblem3();
+        testProblem3();
         // testProblem4();
         cout << "\n=====================================" << endl;
         cout << "     All Tests Completed!            " << endl;

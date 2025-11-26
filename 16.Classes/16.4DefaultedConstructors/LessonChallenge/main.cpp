@@ -124,7 +124,7 @@ public:
     // Hint: Use string concatenation or a stringstream
     string getInfo()
     {
-        // this command store the double the format output needed 
+        // this command store the double the format output needed
         ostringstream gpaStream;
         gpaStream << fixed << setprecision(1) << gpa;
 
@@ -170,25 +170,55 @@ public:
 
 class BankAccount
 {
-public:
     string accountNumber;
     double balance;
-    bool isActive;
+    bool isActive{};
 
+public:
     // TODO: Add defaulted default constructor here
-
+    BankAccount() = default;
     // TODO: Add parameterized constructor here
     // Hint: Set isActive to true when account is created with details
-
+    BankAccount(string accountNumber, double balance)
+    {
+        this->accountNumber = accountNumber;
+        this->balance = balance;
+        this->isActive = true;
+    }
     // TODO: Implement deposit(double amount) method here
     // Hint: Check if account is active first
+    double deposit(double amount)
+    {
+        if (!this->isActive)
+            return -1;
+        this->balance += amount;
+        return this->balance;
+    }
 
     // TODO: Implement withdraw(double amount) method here
     // Hint: Check if account is active AND has sufficient balance
+    double withdraw(double amount)
+    {
+        if (amount > this->balance || !this->isActive)
+        {
+            return -1;
+        }
+        this->balance -= amount;
+        return this->balance;
+    }
 
     // TODO: Implement getBalance() method here
+    double getBalance()
+    {
+        return this->balance;
+    }
 
     // TODO: Implement deactivate() method here
+    bool deactivate()
+    {
+        this->isActive = false;
+        return this->isActive;
+    }
 };
 
 // Problem 4: Hard - Game Character Stats Manager
@@ -377,7 +407,7 @@ void testProblem2()
     cout << "Test 8 (Low GPA 2.0): " << (s8.isHonorStudent() == false ? "PASS" : "FAIL") << endl;
 }
 
-/* void testProblem3()
+void testProblem3()
 {
     cout << "\n=== Testing Problem 3: Bank Account System ===" << endl;
 
@@ -430,7 +460,7 @@ void testProblem2()
     acc6.withdraw(100);
     cout << "Test 8 (Multiple ops): " << (acc6.deposit(50) == 1200.0 ? "PASS" : "FAIL") << endl;
 }
- */
+
 /* void testProblem4()
 {
     cout << "\n=== Testing Problem 4: Game Character Stats Manager ===" << endl;
@@ -522,7 +552,7 @@ int main()
         testProblem2();
         break;
     case 3:
-        // testProblem3();
+        testProblem3();
         break;
     case 4:
         // testProblem4();
@@ -530,7 +560,7 @@ int main()
     case 5:
         testProblem1();
         testProblem2();
-        // testProblem3();
+        testProblem3();
         // testProblem4();
         break;
     default:
