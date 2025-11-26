@@ -42,6 +42,8 @@ size_t problem1Solution(T obj)
 {
     // TODO: Implement your solution here using sizeof operator
     // Hint: The sizeof operator can be applied to types and objects
+    size_t i = sizeof(obj);
+    return i;
 }
 
 // Problem 2: Easy 2 - Array vs Single Object Size
@@ -80,6 +82,8 @@ size_t problem2Solution(T (&arr)[N])
 {
     // TODO: Implement your solution here
     // Hint: Divide the total array size by the size of one element
+
+    return sizeof(arr) / sizeof(arr[0]);
 }
 
 // Problem 3: Medium - Struct Padding Calculator
@@ -146,6 +150,7 @@ size_t problem3Solution(size_t structSize, size_t memberSum)
 {
     // TODO: Implement your solution here
     // Hint: Padding = total struct size - sum of individual member sizes
+    return structSize - memberSum;
 }
 
 // Problem 4: Hard - Memory Layout Analyzer
@@ -196,6 +201,7 @@ int problem4Solution(vector<size_t> memberSizes, vector<size_t> memberAlignments
     // TODO: Implement your solution here
     // Hint: Track when padding would be inserted between members based on alignment rules
     // A new segment starts when padding is needed before a member
+    return 0;
 }
 
 void testProblem1()

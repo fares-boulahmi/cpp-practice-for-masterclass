@@ -48,6 +48,8 @@ double problem1Solution(Student student)
 {
     // TODO: Implement your solution here using struct
     // Hint: Add the three scores and divide by 3.0
+    double total = student.score1 + student.score2 + student.score3;
+    return total / 3.0;
 }
 
 // ============================================================================
@@ -105,6 +107,10 @@ Result problem2Solution(Rectangle rect)
 {
     // TODO: Implement your solution here using struct
     // Hint: area = width * height, perimeter = 2 * (width + height)
+    Result result;
+    result.area = rect.height * rect.width;
+    result.perimeter = 2 * (rect.height + rect.width);
+    return result;
 }
 
 // ============================================================================
@@ -158,6 +164,24 @@ Point problem3Solution(vector<Point> points)
 {
     // TODO: Implement your solution here using struct
     // Hint: Calculate x*x + y*y for each point, track the minimum
+    Point result;
+    if (points.size() == 0)
+        return result;
+    result.x = points[0].x;
+    result.y = points[0].y;
+    int total = (points[0].x * points[0].x) + (points[0].y * points[0].y);
+    for (size_t i = 1; i < points.size(); i++)
+    {
+        /* code */
+        int temp = (points[i].x * points[i].x) + (points[i].y * points[i].y);
+        if (temp < total)
+        {
+            result.x = points[i].x;
+            result.y = points[i].y;
+        }
+    }
+
+    return result;
 }
 
 // ============================================================================
@@ -220,6 +244,7 @@ vector<Book> problem4Solution(vector<Book> books, string author)
 {
     // TODO: Implement your solution here using struct
     // Hint: Filter by author and isAvailable, then sort by year
+    return vector<Book>();
 }
 
 // ============================================================================
