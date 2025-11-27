@@ -26,7 +26,7 @@ int main()
     cout << "sizeof(int*) : " << sizeof(int *) << endl;
     cout << "sizeof(Dog) : " << sizeof(dog1) << endl;
 
-    string name{"I am the king of the universe!"};
+    string name{"!"};
 
     cout << "sizeof(name) : " << sizeof(name) << endl;
 
