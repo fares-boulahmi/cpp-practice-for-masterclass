@@ -37,6 +37,7 @@ class Animal
 public:
     string name;
 
+    Animal() = default;
     Animal(string n) : name(n) {}
 
     void makeSound()
@@ -45,19 +46,36 @@ public:
     }
 };
 
-class Dog
+class Dog : public Animal
 {
     // TODO: Inherit from Animal
     // TODO: Add breed attribute
     // TODO: Implement constructor that takes name and breed
     // TODO: Override makeSound() to print: "[name] the [breed] says: Woof!"
     // Hint: Use the base class constructor in the initialization list
+
+public:
+    Dog() = default;
+    Dog(string name, string breed)
+    {
+        this->name = name;
+        this->breed = breed;
+    };
+    void makeSound()
+    {
+        cout << this->name << " the " << this->breed << " says: Woof!" << endl;
+    }
+
+private:
+    string breed{};
 };
 
 void problem1Solution(string name, string breed)
 {
     // TODO: Create a Dog object and call its makeSound() method
     // Hint: Dog myDog(name, breed); then call the method
+    Dog myDog(name, breed);
+    myDog.makeSound();
 }
 
 // ============================================================================
@@ -97,31 +115,64 @@ class Shape
 public:
     double width;
     double height;
-
+    Shape() = default;
     Shape(double w, double h) : width(w), height(h) {}
 };
 
-class Rectangle
+class Rectangle : public Shape
 {
     // TODO: Inherit from Shape
     // TODO: Implement constructor
     // TODO: Implement getArea() method that returns width * height
     // Hint: Use base class members directly
+public:
+    Rectangle() = default;
+    Rectangle(double width, double height)
+    {
+        this->height = height;
+        this->width = width;
+    }
+    double getArea()
+    {
+        return this->height * this->width;
+    }
 };
 
-class Triangle
+class Triangle : public Shape
 {
     // TODO: Inherit from Shape
     // TODO: Implement constructor
     // TODO: Implement getArea() method that returns (width * height) / 2.0
     // Hint: Remember to use 2.0 (not 2) for proper division
+public:
+    Triangle() = default;
+    Triangle(double width, double height)
+    {
+        this->height = height;
+        this->width = width;
+    }
+    double getArea()
+    {
+        return (this->height * this->width) / 2.0;
+    }
 };
 
 double problem2Solution(string type, double width, double height)
 {
     // TODO: Create appropriate shape object based on type and return its area
     // Hint: Use if-else to check type, create object, call getArea()
-    return 0.0;
+    double result;
+    if (type == "rectangle")
+    {
+        Rectangle rectangle(width, height);
+        result = rectangle.getArea();
+    }
+    else
+    {
+        Triangle triangle(width, height);
+        result = triangle.getArea();
+    }
+    return result;
 }
 
 // ============================================================================
