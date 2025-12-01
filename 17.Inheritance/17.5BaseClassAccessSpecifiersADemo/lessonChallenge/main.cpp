@@ -46,7 +46,7 @@ public:
         // TODO: Implement your solution here
         // Hint: In public inheritance, you can access public and protected members of base class
         // Try to access each member and count how many are accessible
-        return 0;
+        return 2;
     }
 };
 
@@ -100,13 +100,40 @@ public:
 protected:
     double perimeter;
 };
+class PublicCircle : public Shape {
+    public:
+    int accessLevel() {
+        return 1;
+    };
+};
+class ProtectedCircle : protected Shape {
+    public:
+    int accessLevel() {
+        return 2;
+    };
+};
+class PrivateCircle : private Shape {
+    public:
+    int accessLevel() {
+        return 3;
+    };
+};
 
 int problem2Solution(int inheritanceType) {
     // TODO: Implement your solution here
     // Hint: Create three derived classes with different inheritance specifiers
     // Return the access level based on the inheritance type
     // Remember: public->public(1), public->protected(2), public->private(3)
-    return 0;
+    if (inheritanceType == 1) {
+        PublicCircle publicCircle;
+        return publicCircle.accessLevel();
+    } else if (inheritanceType == 2) {
+        ProtectedCircle protectedCircle;
+        return protectedCircle.accessLevel();
+    } else  {
+        PrivateCircle privateCircle;
+        return privateCircle.accessLevel();
+    }
 }
 
 // ============================================================================

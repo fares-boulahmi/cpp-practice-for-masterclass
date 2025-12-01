@@ -24,7 +24,7 @@ int main(){
 
     std::cout << "---------------" << std::endl;
     Engineer engineer1;
-    //engineer1.m_full_name = "Olivier Godson"; // Compiler error
+    //engineer1.m_full_name = "Olivier "; // Compiler error
     //engineer1.m_age = 55; // Compiler error
     //engineer1.m_address = "dsakfd;aslfjd;laskf"; // Compiler error
    
