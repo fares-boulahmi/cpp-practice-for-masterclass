@@ -56,7 +56,8 @@ int problem1Solution()
     // TODO: Implement your solution here
     // Create a Car object and return wheels + doors
     // Hint: When you create a Car object, the Vehicle constructor is called first automatically
-    return 0; // Replace with your solution
+    Car car;
+    return car.doors + car.wheels; // Replace with your solution
 }
 
 // ============================================================================
@@ -121,7 +122,12 @@ int problem2Solution(int n, int m)
     // Create n+m Employee objects total and return Person::personCount
     // Hint: You may need to reset the static counters first or account for previous counts
     // Note: Each Employee object automatically calls Person constructor first
-    return 0; // Replace with your solution
+    for (size_t i = 0; i < n + m; i++)
+    {
+        Employee emp;
+    }
+
+    return Person::personCount; // Replace with your solution
 }
 
 // ============================================================================
