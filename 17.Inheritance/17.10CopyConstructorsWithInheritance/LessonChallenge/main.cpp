@@ -40,7 +40,7 @@ public:
     }
     
     // TODO: Implement copy constructor for Book
-    Book(const Book& other) {
+    Book(const Book& other) : title(other.title) , pages(other.pages)  {
         // TODO: Copy all Book members from other
         // TODO: Print "Book Copy Constructor: [title]"
     }

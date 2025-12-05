@@ -41,7 +41,9 @@ protected:
     int year;
 
 public:
+    Vehicle() = default;
     Vehicle(string b, int y) : brand(b), year(y) {}
+    Vehicle(const Vehicle &source) : brand(source.brand), year(source.year) {}
 };
 
 class Car : public Vehicle
@@ -51,15 +53,18 @@ private:
 
 public:
     // TODO: Implement constructor using base class constructor
-    Car(string b, int y, string m)
+    Car(string b, int y, string m) : Vehicle(b, y), model(m)
     {
         // TODO: Initialize base class and model
+    }
+    Car(const Car &source) : Vehicle(source), model(source.model)
+    {
     }
 
     string getInfo()
     {
         // TODO: Return formatted string
-        return "";
+        return "Brand: " + this->brand + ", Year: " + to_string(this->year) + ", Model: " + this->model;
     }
 };
 
@@ -67,7 +72,9 @@ string problem1Solution(string brand, int year, string model)
 {
     // TODO: Create a Car object and return its info
     // Hint: Use the Car constructor to initialize all members, then call getInfo()
-    return "";
+    Car c1(brand, year, model);
+    Car c2(c1);
+    return c2.getInfo();
 }
 
 // ============================================================================
@@ -105,7 +112,9 @@ protected:
     double baseSalary;
 
 public:
+    Employee() = default;
     Employee(string n, double salary) : name(n), baseSalary(salary) {}
+    Employee(const Employee &source) : name(source.name), baseSalary(source.baseSalary) {}
 };
 
 class Manager : public Employee
@@ -115,15 +124,16 @@ private:
 
 public:
     // TODO: Implement constructor using base class constructor
-    Manager(string n, double salary, double b)
+    Manager(string n, double salary, double b) : Employee(n, salary), bonus(b)
     {
         // TODO: Initialize base class and bonus
     }
+    Manager(const Manager &source) : Employee(source), bonus(source.bonus) {}
 
     double getTotalSalary()
     {
         // TODO: Return baseSalary + bonus
-        return 0.0;
+        return this->baseSalary + this->bonus;
     }
 };
 
@@ -131,7 +141,9 @@ double problem2Solution(string name, double baseSalary, double bonus)
 {
     // TODO: Create a Manager object and return total salary
     // Hint: Use Manager constructor, then call getTotalSalary()
-    return 0.0;
+    Manager m1(name, baseSalary, bonus);
+    Manager m2(m1);
+    return m2.getTotalSalary();
 }
 
 // ============================================================================
@@ -172,6 +184,8 @@ protected:
     int x, y;
 
 public:
+    Shape() = default;
+
     Shape(string c, int posX, int posY) : color(c), x(posX), y(posY) {}
 };
 
@@ -247,6 +261,7 @@ protected:
     double balance;
 
 public:
+    Account() = default;
     Account(int accNum, double initialBalance)
         : accountNumber(accNum), balance(initialBalance) {}
 };
