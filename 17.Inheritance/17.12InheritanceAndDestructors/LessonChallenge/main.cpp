@@ -32,16 +32,20 @@ public:
     Resource() {
         // TODO: Increment totalResources counter
         // TODO: Print "Resource Constructor called"
+        totalResources++;
+        cout << "Resource Constructor called" << endl;
     }
     
     ~Resource() {
         // TODO: Decrement totalResources counter
         // TODO: Print "Resource Destructor called"
+        totalResources--;
+        cout << "Resource Destructor called" << endl;
     }
     
     static int getActiveCount() {
         // TODO: Return totalResources
-        return 0;
+        return totalResources;
     }
 };
 
